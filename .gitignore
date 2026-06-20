@@ -14,3 +14,7 @@ _pipeline/*.local.json
 .aider*
 .cursor/
 *.ai-session
+
+# OS-generated files
+.DS_Store
+Thumbs.db
