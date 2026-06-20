@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Internal dashboard for managing client demo sites.">
+  <title>Client Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
+  <style>
+    /* =====================
+       CSS Custom Properties
+       ===================== */
+    :root {
+      /* Spacing (8-point scale, 4px minimum) */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+
+      /* Typography */
+      --font-family-base: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-size-body: 14px;
+      --font-size-label: 12px;
+      --font-size-heading: 16px;
+      --font-size-display: 24px;
+      --font-weight-regular: 400;
+      --font-weight-bold: 600;
+      --line-height-body: 1.5;
+      --line-height-heading: 1.3;
+
+      /* Colors — dark theme */
+      --color-bg: #0f1419;
+      --color-surface: #1a1f2e;
+      --color-accent: #3b82f6;
+      --color-text-primary: #e5e7eb;
+      --color-text-secondary: #9ca3af;
+      --color-border: #374151;
+      --color-status-pending: #f59e0b;
+      --color-status-live: #10b981;
+      --color-status-archived: #6b7280;
+    }
+
+    /* =====================
+       Reset & Base
+       ===================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text-primary);
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
+    }
+
+    /* =====================
+       Layout
+       ===================== */
+    header {
+      padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: var(--font-size-display);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+    }
+
+    #client-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-2xl) var(--space-lg);
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-xl);
+    }
+
+    /* =====================
+       Client Card
+       ===================== */
+    .client-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      border-radius: 4px;
+    }
+
+    .card-title {
+      font-size: var(--font-size-heading);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      line-height: var(--line-height-heading);
+      word-break: break-word;
+    }
+
+    .card-meta {
+      font-size: var(--font-size-label);
+      color: var(--color-text-secondary);
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      margin-top: auto;
+    }
+
+    /* =====================
+       Status Badge
+       ===================== */
+    .status-badge {
+      display: inline-block;
+      padding: var(--space-xs) var(--space-sm);
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      border-radius: 4px;
+      color: white;
+      text-transform: lowercase;
+    }
+
+    .status-pending {
+      background-color: var(--color-status-pending);
+    }
+
+    .status-live {
+      background-color: var(--color-status-live);
+    }
+
+    .status-archived {
+      background-color: var(--color-status-archived);
+    }
+
+    /* =====================
+       Copy Button
+       ===================== */
+    .copy-btn {
+      background-color: var(--color-accent);
+      color: white;
+      border: none;
+      padding: var(--space-sm) var(--space-md);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-bold);
+      font-family: var(--font-family-base);
+      cursor: pointer;
+      min-height: 44px;
+      min-width: 44px;
+      border-radius: 4px;
+      transition: background-color 0.15s ease;
+    }
+
+    .copy-btn:hover {
+      background-color: #2563eb;
+    }
+
+    .copy-btn:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    /* =====================
+       Empty State
+       ===================== */
+    .empty-state {
+      text-align: center;
+      padding: var(--space-2xl);
+    }
+
+    .empty-state h2 {
+      font-size: var(--font-size-heading);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-md);
+      font-weight: var(--font-weight-bold);
+    }
+
+    .empty-state p {
+      color: var(--color-text-secondary);
+    }
+
+    /* =====================
+       Responsive
+       ===================== */
+    @media (max-width: 640px) {
+      #client-grid {
+        grid-template-columns: 1fr;
+      }
+      main {
+        padding: var(--space-lg) var(--space-md);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="dashboard">
+    <header>
+      <h1>Client Dashboard</h1>
+    </header>
+    <main id="client-grid">
+      <!-- Cards rendered here by JS from clients.json -->
+    </main>
+  </div>
+
+  <script>
+    /**
+     * escapeHtml — XSS prevention for dynamic content insertion.
+     * Uses DOM textContent assignment which the browser HTML-encodes automatically.
+     * Apply to ALL dynamic fields from clients.json before template insertion.
+     */
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = String(text);
+      return div.innerHTML;
+    }
+
+    /**
+     * renderClientCards — map client entries to card HTML and inject into grid.
+     */
+    function renderClientCards(clients) {
+      const grid = document.getElementById('client-grid');
+      grid.innerHTML = clients.map(function(client) {
+        return '<article class="client-card">'
+          + '<h3 class="card-title">' + escapeHtml(client.businessName) + '</h3>'
+          + '<p class="card-meta">' + escapeHtml(client.industry) + ' • ' + escapeHtml(client.businessType) + '</p>'
+          + '<div class="card-footer">'
+          + '<span class="status-badge status-' + escapeHtml(client.status) + '">' + escapeHtml(client.status) + '</span>'
+          + '<button class="copy-btn" onclick="copyDemoUrl(\'' + client.slug + '\', event)" title="Copy demo URL to clipboard">Copy</button>'
+          + '</div>'
+          + '</article>';
+      }).join('');
+    }
+
+    /**
+     * showEmptyState — display a message when no clients are found or on load error.
+     */
+    function showEmptyState(message) {
+      const grid = document.getElementById('client-grid');
+      grid.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;">'
+        + '<h2>No clients yet</h2>'
+        + '<p>' + (message || 'Add a new client to clients.json to see generated sites here. Refresh the page to reload.') + '</p>'
+        + '</div>';
+    }
+
+    /**
+     * copyDemoUrl — write /slug/ to clipboard; provide visual feedback on the button.
+     */
+    function copyDemoUrl(slug, evt) {
+      var btn = evt && evt.target ? evt.target : null;
+      var url = '/' + slug + '/';
+
+      navigator.clipboard.writeText(url).then(function() {
+        console.log('Copied: ' + url);
+        if (btn) {
+          btn.textContent = 'Copied!';
+          setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+        }
+      }).catch(function(err) {
+        console.error('Copy failed:', err);
+        alert('Copy failed. Demo URL: ' + url);
+      });
+    }
+
+    /**
+     * loadClients — fetch clients.json and trigger render or empty state.
+     * Uses relative path so it works both locally (http.server) and on GitHub Pages.
+     */
+    async function loadClients() {
+      try {
+        const response = await fetch('./clients.json');
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status);
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data.clients)) {
+          throw new Error('Invalid schema: data.clients is not an array');
+        }
+
+        // Phase 1: show ALL entries regardless of status (D-06)
+        const clients = data.clients;
+
+        if (clients.length === 0) {
+          showEmptyState();
+        } else {
+          renderClientCards(clients);
+        }
+      } catch (err) {
+        console.error('Failed to load clients:', err);
+        showEmptyState('Could not load client list. Check that clients.json is present and valid.');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadClients);
+  </script>
+</body>
+</html>
