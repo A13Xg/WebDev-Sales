@@ -1,0 +1,16 @@
+# Planning docs (local only)
+.planning/
+
+# AI pipeline — sensitive intake data (never commit client info)
+_pipeline/intake.json
+_pipeline/*.local.json
+
+# Claude Code session/config files
+.claude/settings.local.json
+.claude/todos/
+.claude/cache/
+
+# General AI tool artifacts
+.aider*
+.cursor/
+*.ai-session
