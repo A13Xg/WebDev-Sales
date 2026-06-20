@@ -225,20 +225,50 @@
     }
 
     /**
-     * renderClientCards — map client entries to card HTML and inject into grid.
+     * renderClientCards — build card DOM nodes for each client entry.
+     * Uses DOM APIs throughout to avoid XSS via attribute or JS-string interpolation.
      */
     function renderClientCards(clients) {
-      const grid = document.getElementById('client-grid');
-      grid.innerHTML = clients.map(function(client) {
-        return '<article class="client-card">'
-          + '<h3 class="card-title">' + escapeHtml(client.businessName) + '</h3>'
-          + '<p class="card-meta">' + escapeHtml(client.industry) + ' • ' + escapeHtml(client.businessType) + '</p>'
-          + '<div class="card-footer">'
-          + '<span class="status-badge status-' + escapeHtml(client.status) + '">' + escapeHtml(client.status) + '</span>'
-          + '<button class="copy-btn" onclick="copyDemoUrl(\'' + client.slug + '\', event)" title="Copy demo URL to clipboard">Copy</button>'
-          + '</div>'
-          + '</article>';
-      }).join('');
+      var VALID_STATUSES = ['pending', 'live', 'archived'];
+      var grid = document.getElementById('client-grid');
+      grid.innerHTML = '';
+
+      clients.forEach(function(client) {
+        var safeStatus = VALID_STATUSES.indexOf(client.status) !== -1 ? client.status : 'unknown';
+
+        var article = document.createElement('article');
+        article.className = 'client-card';
+
+        var title = document.createElement('h3');
+        title.className = 'card-title';
+        title.textContent = client.businessName;
+
+        var meta = document.createElement('p');
+        meta.className = 'card-meta';
+        meta.textContent = client.industry + ' • ' + client.businessType;
+
+        var footer = document.createElement('div');
+        footer.className = 'card-footer';
+
+        var badge = document.createElement('span');
+        badge.className = 'status-badge status-' + safeStatus;
+        badge.textContent = client.status;
+
+        var btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+        btn.title = 'Copy demo URL to clipboard';
+        btn.addEventListener('click', (function(slug) {
+          return function(evt) { copyDemoUrl(slug, evt); };
+        }(client.slug)));
+
+        footer.appendChild(badge);
+        footer.appendChild(btn);
+        article.appendChild(title);
+        article.appendChild(meta);
+        article.appendChild(footer);
+        grid.appendChild(article);
+      });
     }
 
     /**
