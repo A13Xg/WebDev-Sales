@@ -10,6 +10,17 @@
       "themeRef": null,
       "generatedAt": null,
       "notes": "First placeholder. Phase 2 will generate this site."
+    },
+    {
+      "businessName": "Sunrise Yoga Studio",
+      "slug": "sunrise-yoga-studio",
+      "industry": "Health & Wellness",
+      "businessType": "yoga studio",
+      "status": "live",
+      "domain": null,
+      "themeRef": "06-fitness-studio",
+      "generatedAt": "2026-06-20T21:30:00Z",
+      "notes": "Holistic, peaceful vibe. Warm colors (oranges, golds). Emphasize class schedule and member testimonials. Founder-led small studio."
     }
   ]
 }

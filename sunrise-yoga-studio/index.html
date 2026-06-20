@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunrise Yoga Studio | Holistic Yoga &amp; Mindful Movement</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700&display=swap">
+  <style>
+    /* ===== CSS RESET ===== */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ===== CSS TOKENS ===== */
+    :root {
+      /* Spacing (8-point scale) */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+
+      /* Typography */
+      --font-family-base: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-family-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --font-size-body: 16px;
+      --font-size-label: 13px;
+      --font-size-heading: 28px;
+      --font-size-display: 52px;
+      --font-weight-light: 300;
+      --font-weight-regular: 400;
+      --font-weight-medium: 500;
+      --font-weight-bold: 700;
+      --line-height-body: 1.7;
+      --line-height-heading: 1.25;
+
+      /* Colors — warm earth / holistic yoga palette */
+      --color-bg: #fdf7f0;           /* 60% warm cream background */
+      --color-surface: #f5ece0;      /* 30% warm sand card/container */
+      --color-surface-dark: #ecdcc9; /* deeper card variant */
+      --color-accent: #c97820;       /* 10% warm amber/gold — CTAs only */
+      --color-accent-hover: #a86018; /* accent hover state */
+      --color-text-primary: #2c1f10; /* deep warm brown */
+      --color-text-secondary: #7a5c3e; /* muted warm brown */
+      --color-border: #d9c4a8;       /* warm parchment border */
+      --color-nav-bg: rgba(253, 247, 240, 0.96);
+      --color-hero-overlay: rgba(44, 31, 16, 0.42);
+      --color-white: #ffffff;
+    }
+
+    /* ===== BASE ===== */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-family-base);
+      background-color: var(--color-bg);
+      color: var(--color-text-primary);
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ===== NAVIGATION ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: var(--space-md) 0;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .nav.scrolled {
+      background-color: var(--color-nav-bg);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 1px 0 var(--color-border);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    .nav-logo {
+      font-family: var(--font-family-display);
+      font-size: 22px;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: none;
+      list-style: none;
+      gap: var(--space-xl);
+    }
+
+    .nav-links a {
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-text-primary);
+    }
+
+    .nav-cta {
+      display: none;
+    }
+
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: var(--space-xs);
+      min-height: 44px;
+      min-width: 44px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background-color: var(--color-text-primary);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .menu-toggle.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile menu drawer */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--color-bg);
+      z-index: 999;
+      padding-top: 80px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xl);
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      font-family: var(--font-family-display);
+      font-size: 32px;
+      color: var(--color-text-primary);
+      transition: color 0.2s ease;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--color-accent);
+    }
+
+    .mobile-menu .mobile-cta {
+      margin-top: var(--space-lg);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-xl);
+      min-height: 44px;
+      border-radius: 3px;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background-color: var(--color-accent);
+      color: var(--color-white);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-accent-hover);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border-color: var(--color-white);
+      color: var(--color-white);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--color-white);
+      color: var(--color-text-primary);
+    }
+
+    .btn-outline-dark {
+      background-color: transparent;
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .btn-outline-dark:hover {
+      background-color: var(--color-accent);
+      color: var(--color-white);
+    }
+
+    .btn:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 580px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: var(--color-hero-overlay);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 0 var(--space-lg);
+      max-width: 720px;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(253, 247, 240, 0.75);
+      margin-bottom: var(--space-md);
+    }
+
+    .hero h1 {
+      font-family: var(--font-family-display);
+      font-size: clamp(36px, 8vw, var(--font-size-display));
+      font-weight: var(--font-weight-medium);
+      line-height: var(--line-height-heading);
+      color: var(--color-white);
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero-tagline {
+      font-size: 18px;
+      font-weight: var(--font-weight-light);
+      color: rgba(253, 247, 240, 0.88);
+      max-width: 520px;
+      margin: 0 auto var(--space-2xl);
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      justify-content: center;
+    }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      background-color: rgba(44, 31, 16, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-stat {
+      flex: 1;
+      max-width: 180px;
+      padding: var(--space-lg) var(--space-md);
+      text-align: center;
+      border-right: 1px solid rgba(253, 247, 240, 0.15);
+    }
+
+    .hero-stat:last-child {
+      border-right: none;
+    }
+
+    .hero-stat-number {
+      display: block;
+      font-family: var(--font-family-display);
+      font-size: 28px;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-white);
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      display: block;
+      font-size: 11px;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(253, 247, 240, 0.65);
+      margin-top: var(--space-xs);
+    }
+
+    /* ===== SECTION COMMON ===== */
+    .section-tag {
+      display: inline-block;
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-heading {
+      font-family: var(--font-family-display);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: var(--font-weight-medium);
+      line-height: var(--line-height-heading);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-md);
+    }
+
+    .section-subheading {
+      font-size: 17px;
+      color: var(--color-text-secondary);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: var(--line-height-body);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+    }
+
+    /* ===== WELCOME / INTRO ===== */
+    .intro {
+      padding: var(--space-3xl) 0;
+    }
+
+    .intro-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+
+    .intro-text .section-tag {
+      margin-bottom: var(--space-sm);
+    }
+
+    .intro-text .section-heading {
+      text-align: left;
+    }
+
+    .intro-text p {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-lg);
+      max-width: 480px;
+    }
+
+    .intro-pillars {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .pillar {
+      display: flex;
+      gap: var(--space-md);
+      align-items: flex-start;
+    }
+
+    .pillar-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-accent);
+    }
+
+    .pillar-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .pillar-body h3 {
+      font-family: var(--font-family-display);
+      font-size: 20px;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .pillar-body p {
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      margin-bottom: 0;
+    }
+
+    /* ===== CLASSES ===== */
+    .classes {
+      padding: var(--space-3xl) 0;
+      background-color: var(--color-surface);
+    }
+
+    .classes-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .class-card {
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .class-card:hover {
+      box-shadow: 0 8px 24px rgba(44, 31, 16, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .class-card-img {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .class-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .class-card:hover .class-card-img img {
+      transform: scale(1.04);
+    }
+
+    .class-duration-badge {
+      position: absolute;
+      bottom: var(--space-sm);
+      right: var(--space-sm);
+      background-color: rgba(44, 31, 16, 0.75);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.06em;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: 3px;
+    }
+
+    .class-card-body {
+      padding: var(--space-lg);
+    }
+
+    .class-level {
+      font-size: 11px;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-xs);
+    }
+
+    .class-card-body h3 {
+      font-family: var(--font-family-display);
+      font-size: 22px;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .class-card-body p {
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* ===== ABOUT ===== */
+    .about {
+      padding: var(--space-3xl) 0;
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+
+    .about-image {
+      border-radius: 6px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-text .section-heading {
+      text-align: left;
+    }
+
+    .about-text p {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-lg);
+    }
+
+    .about-text p:last-of-type {
+      margin-bottom: var(--space-xl);
+    }
+
+    .founder-card {
+      display: flex;
+      gap: var(--space-md);
+      align-items: center;
+      padding: var(--space-lg);
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      margin-top: var(--space-xl);
+    }
+
+    .founder-avatar {
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--color-border);
+    }
+
+    .founder-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .founder-info h4 {
+      font-family: var(--font-family-display);
+      font-size: 18px;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+    }
+
+    .founder-info span {
+      font-size: var(--font-size-label);
+      color: var(--color-text-secondary);
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials {
+      padding: var(--space-3xl) 0;
+      background-color: var(--color-surface);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .testimonial-card {
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: var(--space-xl);
+    }
+
+    .testimonial-stars {
+      display: flex;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+      color: var(--color-accent);
+    }
+
+    .testimonial-stars svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .testimonial-quote {
+      font-family: var(--font-family-display);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--color-text-primary);
+      line-height: 1.55;
+      margin-bottom: var(--space-lg);
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .testimonial-author-name {
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+    }
+
+    .testimonial-author-detail {
+      font-size: 12px;
+      color: var(--color-text-secondary);
+    }
+
+    /* ===== SCHEDULE STRIP ===== */
+    .schedule-strip {
+      padding: var(--space-2xl) 0;
+      background-color: var(--color-accent);
+      text-align: center;
+    }
+
+    .schedule-strip h2 {
+      font-family: var(--font-family-display);
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-white);
+      margin-bottom: var(--space-sm);
+    }
+
+    .schedule-strip p {
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: var(--space-lg);
+      font-size: 15px;
+    }
+
+    .schedule-strip .btn-outline {
+      border-color: var(--color-white);
+      color: var(--color-white);
+    }
+
+    .schedule-strip .btn-outline:hover {
+      background-color: var(--color-white);
+      color: var(--color-accent);
+    }
+
+    /* ===== CONTACT ===== */
+    .contact {
+      padding: var(--space-3xl) 0;
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .contact-info h3 {
+      font-family: var(--font-family-display);
+      font-size: 24px;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-lg);
+    }
+
+    .contact-detail {
+      display: flex;
+      gap: var(--space-md);
+      align-items: flex-start;
+      margin-bottom: var(--space-lg);
+    }
+
+    .contact-detail-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-accent);
+    }
+
+    .contact-detail-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .contact-detail-body {
+      padding-top: var(--space-xs);
+    }
+
+    .contact-detail-body strong {
+      display: block;
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: 2px;
+    }
+
+    .contact-detail-body span {
+      font-size: var(--font-size-body);
+      color: var(--color-text-primary);
+    }
+
+    .contact-form {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: var(--space-xl);
+    }
+
+    .contact-form h3 {
+      font-family: var(--font-family-display);
+      font-size: 24px;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-lg);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-md);
+    }
+
+    .form-group label {
+      display: block;
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: var(--space-sm) var(--space-md);
+      min-height: 44px;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 3px;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body);
+      color: var(--color-text-primary);
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+    }
+
+    .form-group textarea {
+      height: 120px;
+      resize: vertical;
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: var(--space-md);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background-color: var(--color-text-primary);
+      padding: var(--space-2xl) 0 var(--space-lg);
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    .footer-brand .footer-logo {
+      font-family: var(--font-family-display);
+      font-size: 24px;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-white);
+      margin-bottom: var(--space-sm);
+    }
+
+    .footer-brand p {
+      font-size: 15px;
+      color: rgba(253, 247, 240, 0.6);
+      max-width: 280px;
+      line-height: var(--line-height-body);
+    }
+
+    .footer-links h4 {
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(253, 247, 240, 0.5);
+      margin-bottom: var(--space-md);
+    }
+
+    .footer-links ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .footer-links a {
+      font-size: 15px;
+      color: rgba(253, 247, 240, 0.75);
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--color-white);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(253, 247, 240, 0.1);
+      padding-top: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      font-size: 13px;
+      color: rgba(253, 247, 240, 0.4);
+    }
+
+    /* ===== TABLET & UP (768px+) ===== */
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+
+      .nav-cta {
+        display: inline-flex;
+      }
+
+      .menu-toggle {
+        display: none;
+      }
+
+      .intro-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .intro-pillars {
+        grid-template-columns: 1fr;
+      }
+
+      .classes-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-inner {
+        grid-template-columns: 2fr 1fr 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+
+    /* ===== DESKTOP (1024px+) ===== */
+    @media (min-width: 1024px) {
+      .classes-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .testimonials-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .intro-pillars {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">Sunrise Yoga Studio</a>
+      <ul class="nav-links">
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#testimonials">Community</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary nav-cta">Book a Class</a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Navigation menu">
+    <a href="#classes" class="mobile-nav-link">Classes</a>
+    <a href="#about" class="mobile-nav-link">About</a>
+    <a href="#testimonials" class="mobile-nav-link">Community</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
+    <a href="#contact" class="btn btn-primary mobile-cta">Book a Class</a>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero" id="hero">
+    <div class="hero-bg">
+      <img
+        src="https://images.unsplash.com/photo-1545389336-cf090694435e?w=1920&h=1080&fit=crop"
+        alt="Morning yoga practice in a warmly lit studio"
+      >
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Welcome to</span>
+      <h1>Sunrise Yoga Studio</h1>
+      <p class="hero-tagline">
+        A warm, founder-led community where every breath matters. Discover holistic yoga practice designed to nourish mind, body, and spirit.
+      </p>
+      <div class="hero-cta">
+        <a href="#classes" class="btn btn-primary">Explore Classes</a>
+        <a href="#about" class="btn btn-outline">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-number">12+</span>
+        <span class="hero-stat-label">Weekly Classes</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-number">8 Yrs</span>
+        <span class="hero-stat-label">In Practice</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-number">200+</span>
+        <span class="hero-stat-label">Community Members</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Welcome / Intro -->
+  <section class="intro" id="welcome">
+    <div class="container">
+      <div class="intro-inner">
+        <div class="intro-text">
+          <span class="section-tag">Our Philosophy</span>
+          <h2 class="section-heading">Where stillness meets strength</h2>
+          <p>
+            At Sunrise Yoga Studio, we believe yoga is a practice — not a performance. Every class is an invitation to slow down, breathe deeply, and reconnect with what matters. Our small-group format means you're never just a number on a mat.
+          </p>
+          <p>
+            Whether you're stepping onto the mat for the first time or deepening a lifelong practice, you'll find a welcoming space here. Founder Sarah Moreno built this studio on the principle that healing and growth thrive in community.
+          </p>
+          <a href="#classes" class="btn btn-outline-dark">See All Classes</a>
+        </div>
+        <div class="intro-pillars">
+          <div class="pillar">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <div class="pillar-body">
+              <h3>Intentional Pacing</h3>
+              <p>Classes are thoughtfully sequenced to move at a human pace — no rushing, no pressure.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+              </svg>
+            </div>
+            <div class="pillar-body">
+              <h3>Small-Group Connection</h3>
+              <p>Capped class sizes ensure personal attention from an instructor who knows your name.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <div class="pillar-body">
+              <h3>A Studio That Feels Like Home</h3>
+              <p>Natural light, warm tones, and calming music. We designed every corner for ease and warmth.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Classes -->
+  <section class="classes" id="classes">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">What We Offer</span>
+        <h2 class="section-heading">Classes for every body</h2>
+        <p class="section-subheading">
+          From gentle mornings to flowing evenings, our schedule is built around your life — not the other way around.
+        </p>
+      </div>
+      <div class="classes-grid">
+
+        <article class="class-card">
+          <div class="class-card-img">
+            <img
+              src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=400&fit=crop"
+              alt="Students in a morning flow yoga class, sunlit studio"
+            >
+            <span class="class-duration-badge">60 min</span>
+          </div>
+          <div class="class-card-body">
+            <p class="class-level">All Levels</p>
+            <h3>Morning Flow</h3>
+            <p>Start your day with intention. A sun-salutation-anchored sequence that warms the body and clears the mind — perfect for any experience level.</p>
+            <a href="#contact" class="btn btn-outline-dark">Reserve Your Spot</a>
+          </div>
+        </article>
+
+        <article class="class-card">
+          <div class="class-card-img">
+            <img
+              src="https://images.unsplash.com/photo-1588286840104-8957b019727f?w=600&h=400&fit=crop"
+              alt="Practitioner in a deep yin yoga stretch, candlelit room"
+            >
+            <span class="class-duration-badge">75 min</span>
+          </div>
+          <div class="class-card-body">
+            <p class="class-level">Beginner Friendly</p>
+            <h3>Yin &amp; Restore</h3>
+            <p>Long, passive holds that release deep connective tissue. Ideal for unwinding, managing stress, and improving flexibility with minimal effort.</p>
+            <a href="#contact" class="btn btn-outline-dark">Reserve Your Spot</a>
+          </div>
+        </article>
+
+        <article class="class-card">
+          <div class="class-card-img">
+            <img
+              src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop"
+              alt="Students in a dynamic power vinyasa flow"
+            >
+            <span class="class-duration-badge">60 min</span>
+          </div>
+          <div class="class-card-body">
+            <p class="class-level">Intermediate</p>
+            <h3>Power Vinyasa</h3>
+            <p>A breath-linked, flowing sequence that builds strength and heat. Expect creative transitions, core work, and a satisfying final savasana.</p>
+            <a href="#contact" class="btn btn-outline-dark">Reserve Your Spot</a>
+          </div>
+        </article>
+
+        <article class="class-card">
+          <div class="class-card-img">
+            <img
+              src="https://images.unsplash.com/photo-1516526995003-435ccce2be97?w=600&h=400&fit=crop"
+              alt="Meditation session in a peaceful yoga studio"
+            >
+            <span class="class-duration-badge">45 min</span>
+          </div>
+          <div class="class-card-body">
+            <p class="class-level">All Levels</p>
+            <h3>Seated Meditation</h3>
+            <p>Guided breathwork and mindfulness practice for cultivating inner stillness. Open to all — no prior meditation experience required.</p>
+            <a href="#contact" class="btn btn-outline-dark">Reserve Your Spot</a>
+          </div>
+        </article>
+
+        <article class="class-card">
+          <div class="class-card-img">
+            <img
+              src="https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=600&h=400&fit=crop"
+              alt="Gentle hatha yoga class with blocks and props"
+            >
+            <span class="class-duration-badge">60 min</span>
+          </div>
+          <div class="class-card-body">
+            <p class="class-level">Beginners Welcome</p>
+            <h3>Gentle Hatha</h3>
+            <p>Foundational postures held longer with emphasis on alignment and body awareness. A nurturing choice for those new to yoga or returning from injury.</p>
+            <a href="#contact" class="btn btn-outline-dark">Reserve Your Spot</a>
+          </div>
+        </article>
+
+        <article class="class-card">
+          <div class="class-card-img">
+            <img
+              src="https://images.unsplash.com/photo-1593229874334-90d965f27c42?w=600&h=400&fit=crop"
+              alt="Students practicing partner and community yoga together"
+            >
+            <span class="class-duration-badge">90 min</span>
+          </div>
+          <div class="class-card-body">
+            <p class="class-level">Community</p>
+            <h3>Sunday Sanctuary</h3>
+            <p>Our weekly community class weaves together slow flow, live singing bowls, and a shared tea ceremony. The heart of the Sunrise community.</p>
+            <a href="#contact" class="btn btn-outline-dark">Reserve Your Spot</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Schedule CTA strip -->
+  <div class="schedule-strip">
+    <div class="container">
+      <h2>Ready to find your practice?</h2>
+      <p>Classes run Monday through Sunday. Drop-ins welcome. Mats provided.</p>
+      <a href="#contact" class="btn btn-outline">View Full Schedule &amp; Book</a>
+    </div>
+  </div>
+
+  <!-- About / Founder -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-image">
+          <img
+            src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&h=600&fit=crop"
+            alt="Sunrise Yoga Studio interior — warm light, wooden floors, plants"
+          >
+        </div>
+        <div class="about-text">
+          <span class="section-tag">Our Story</span>
+          <h2 class="section-heading">Founded in stillness, built in community</h2>
+          <p>
+            Sunrise Yoga Studio opened its doors in 2016 when founder Sarah Moreno converted a sun-soaked warehouse loft into a space she wished had existed for her own healing journey. After a decade of teaching in large gyms and online platforms, she craved something smaller, warmer, and more intentional.
+          </p>
+          <p>
+            Every detail of the studio — from the hand-plastered walls to the organic cotton bolsters — was chosen with care. The schedule was built around the rhythms of real life: early risers, lunch-break practitioners, and evening unwinders all find their niche here.
+          </p>
+          <p>
+            Today Sunrise serves a community of over 200 regular practitioners, runs seasonal workshops, and remains, first and foremost, a place where you feel seen from the moment you walk through the door.
+          </p>
+          <div class="founder-card">
+            <div class="founder-avatar">
+              <img
+                src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&fit=crop"
+                alt="Sarah Moreno, founder of Sunrise Yoga Studio"
+              >
+            </div>
+            <div class="founder-info">
+              <h4>Sarah Moreno</h4>
+              <span>Founder &amp; Lead Instructor, E-RYT 500</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Community Voices</span>
+        <h2 class="section-heading">What our students say</h2>
+        <p class="section-subheading">Real words from the people who practice here every week.</p>
+      </div>
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">"I came in tight, stressed, and skeptical. After six weeks of Morning Flow I sleep better, my lower back pain is gone, and honestly, I just feel like myself again. Sarah sees each student — that's rare."</p>
+          <div class="testimonial-author">
+            <div>
+              <p class="testimonial-author-name">Maya R.</p>
+              <p class="testimonial-author-detail">Member since 2022 &middot; Morning Flow</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">"Sunday Sanctuary is the highlight of my week. The singing bowls, the community tea, the unhurried pace — it's the only 90 minutes in the week I fully exhale. Sunrise is genuinely special."</p>
+          <div class="testimonial-author">
+            <div>
+              <p class="testimonial-author-name">Tomás K.</p>
+              <p class="testimonial-author-detail">Member since 2020 &middot; Sunday Sanctuary</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">"I'd tried yoga at three different studios before Sunrise. The difference is the intention — Sarah and her teachers actually explain the 'why' behind each posture. My practice finally feels like mine."</p>
+          <div class="testimonial-author">
+            <div>
+              <p class="testimonial-author-name">Priya S.</p>
+              <p class="testimonial-author-detail">Member since 2023 &middot; Gentle Hatha &amp; Yin</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Come Practice With Us</span>
+        <h2 class="section-heading">Get in touch</h2>
+        <p class="section-subheading">Questions, class reservations, or just want to say hello — we'd love to hear from you.</p>
+      </div>
+      <div class="contact-inner">
+        <div class="contact-info">
+          <h3>Studio Information</h3>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="contact-detail-body">
+              <strong>Location</strong>
+              <span>418 Amber Lane, Studio 2B<br>Boulder, CO 80301</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.23 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 013.14 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+              </svg>
+            </div>
+            <div class="contact-detail-body">
+              <strong>Phone</strong>
+              <span>(720) 555-0194</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div class="contact-detail-body">
+              <strong>Email</strong>
+              <span>hello@sunriseyogastudio.com</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <path d="M16 2v4M8 2v4M3 10h18"/>
+              </svg>
+            </div>
+            <div class="contact-detail-body">
+              <strong>Studio Hours</strong>
+              <span>Mon – Fri: 6 am – 8 pm<br>Sat – Sun: 7 am – 5 pm</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <h3>Send a Message</h3>
+          <form id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" autocomplete="name" placeholder="Maya Rodriguez" required minlength="2">
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="maya@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="class-interest">Class Interest</label>
+              <select id="class-interest" name="class-interest">
+                <option value="">Select a class...</option>
+                <option value="morning-flow">Morning Flow</option>
+                <option value="yin-restore">Yin &amp; Restore</option>
+                <option value="power-vinyasa">Power Vinyasa</option>
+                <option value="meditation">Seated Meditation</option>
+                <option value="gentle-hatha">Gentle Hatha</option>
+                <option value="sunday-sanctuary">Sunday Sanctuary</option>
+                <option value="other">General Inquiry</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us a little about where you are in your practice, or ask us anything..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary form-submit">Send Message</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <p class="footer-logo">Sunrise Yoga Studio</p>
+          <p>A warm, founder-led studio dedicated to holistic yoga practice and mindful community — in Boulder, CO since 2016.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Classes</h4>
+          <ul>
+            <li><a href="#classes">Morning Flow</a></li>
+            <li><a href="#classes">Yin &amp; Restore</a></li>
+            <li><a href="#classes">Power Vinyasa</a></li>
+            <li><a href="#classes">Sunday Sanctuary</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Studio</h4>
+          <ul>
+            <li><a href="#about">About Sarah</a></li>
+            <li><a href="#testimonials">Community</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact">Book a Class</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Sunrise Yoga Studio. All rights reserved.</p>
+        <p>418 Amber Lane Studio 2B, Boulder, CO 80301</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Minimal JS: nav scroll effect, mobile menu, form handling -->
+  <script>
+    (function () {
+      'use strict';
+
+      // Nav scroll effect
+      var nav = document.getElementById('main-nav');
+      function onScroll() {
+        if (window.scrollY > 48) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // Mobile menu toggle
+      var menuToggle = document.getElementById('menu-toggle');
+      var mobileMenu = document.getElementById('mobile-menu');
+      var mobileLinks = mobileMenu.querySelectorAll('a');
+
+      function closeMenu() {
+        menuToggle.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      menuToggle.addEventListener('click', function () {
+        var isOpen = mobileMenu.classList.contains('open');
+        if (isOpen) {
+          closeMenu();
+        } else {
+          menuToggle.classList.add('open');
+          mobileMenu.classList.add('open');
+          menuToggle.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+
+      mobileLinks.forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // Contact form — decorative submission feedback
+      var contactForm = document.getElementById('contact-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            return;
+          }
+          var btn = contactForm.querySelector('[type="submit"]');
+          var originalText = btn.textContent;
+          btn.disabled = true;
+          btn.textContent = 'Message sent!';
+          setTimeout(function () {
+            btn.disabled = false;
+            btn.textContent = originalText;
+            contactForm.reset();
+          }, 3000);
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
