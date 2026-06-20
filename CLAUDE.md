@@ -255,3 +255,118 @@ Do not make direct repo edits outside a GSD workflow unless the user explicitly 
 > Profile not yet configured. Run `/gsd-profile-user` to generate your developer profile.
 > This section is managed by `generate-claude-profile` -- do not edit manually.
 <!-- GSD:profile-end -->
+
+## Pipeline Sequence
+
+The AI generation pipeline executes in 5 steps per client entry, in order. This sequence is encoded in Phase 2's `/generate-client` skill and must be followed atomically per client to maintain `clients.json` consistency.
+
+### Step 1: Read Intake Staging File
+
+- Source: `_pipeline/intake.json` (local, not in git)
+- Action: For each entry WITHOUT a matching `status: "live"` entry in `clients.json`, queue for generation
+- Idempotency: Skip entries already `status: "live"`
+
+### Step 2: Research the Business
+
+- Attempt to fetch and parse the business's existing `domain` (if provided)
+- Fall back to web search, business directory listings, or operator `notes` field if domain is blocked or absent
+- Extract: business description, services, target audience, visual and brand clues
+
+### Step 3: Select Web-Dev-Samples Theme
+
+- Match emotional content type, NOT industry label alone (e.g., florist vs. hardware store are both "Retail" but get different themes)
+- Read `../Web-Dev-Samples/docs/sites/` and select the closest thematic reference before generating
+- Rationale: Theme matching drives color, typography, and layout — must precede generation
+
+### Step 4: Write Complete Site
+
+- Output: `[slug]/index.html` — single pure HTML/CSS/JS file
+- All asset paths are relative (no `/` prefix, no CDN except Google Fonts and Unsplash in generated sites)
+- No build step, no npm, no shared assets between sites — fully self-contained
+- Inline all CSS and JS, or use a single local `style.css` per site
+
+### Step 5: Update Manifest
+
+- Set `status: "live"` for this entry in `clients.json`
+- Populate `themeRef`: which Web-Dev-Samples theme was used (e.g., `"02-restaurant"`)
+- Populate `generatedAt`: ISO8601 timestamp of generation
+- **Idempotency rule:** If entry already `status: "live"`, skip to next (prevent overwriting recent changes)
+
+### Atomic Semantics
+
+- Pipeline processes ONE client at a time (sequential, not parallel) — avoids context window confusion between clients
+- Update `clients.json` after site is fully written — never leave manifest in inconsistent state
+- If generation fails for one client, operator can retry independently; other clients unaffected
+
+## CSS Variable Discipline
+
+All styling tokens in the dashboard and generated client sites MUST be defined as CSS custom properties (`:root` variables). This enables Phase 2+ to override theme values globally without touching HTML structure.
+
+### Required Pattern
+
+```
+:root {
+  /* Spacing (8-point scale, 4px exceptions for icons only) */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Typography */
+  --font-family-base: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-body: 14px;
+  --font-size-label: 12px;
+  --font-size-heading: 16px;
+  --font-size-display: 24px;
+  --font-weight-regular: 400;
+  --font-weight-bold: 600;
+
+  /* Colors (dark theme defaults) */
+  --color-bg: #0f1419;
+  --color-surface: #1a1f2e;
+  --color-accent: #3b82f6;
+  --color-text-primary: #e5e7eb;
+  --color-text-secondary: #9ca3af;
+  --color-border: #374151;
+  --color-status-pending: #f59e0b;
+  --color-status-live: #10b981;
+  --color-status-archived: #6b7280;
+}
+
+/* Usage in selectors — consume via var() */
+.my-element {
+  background-color: var(--color-bg);
+  padding: var(--space-md);
+  font-size: var(--font-size-body);
+}
+```
+
+### Never Do This
+
+```
+/* WRONG: Hard-coded hex values in selectors */
+.my-element {
+  background-color: #0f1419;  /* Should be var(--color-bg) */
+  padding: 16px;              /* Should be var(--space-md) */
+}
+
+/* WRONG: Inline style attribute with hard-coded values */
+/* <div style="color: #e5e7eb; padding: 8px;"> */
+```
+
+### Why This Matters
+
+- Generated sites can override `:root` in their own stylesheet to apply per-client branding without touching HTML structure
+- Dashboard remains pristine; generated sites inherit base tokens and override as needed
+- Enables theme management (Phase 2+) without duplicating HTML across all sites
+- Refactoring tokens (e.g., "change all spacing by 2px") is a single `:root` update, not a find-and-replace across all files
+
+### Enforcement Checklist
+
+- All color values are `var(--color-*)` in CSS, never hardcoded hex
+- All spacing and sizing values are `var(--space-*)`, never hardcoded px
+- All font properties reference `var(--font-*)` tokens
+- No inline `style=""` attributes with hard-coded values
+- `:root` is the canonical token definition; selectors consume via `var()`
