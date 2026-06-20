@@ -307,7 +307,7 @@
      */
     async function loadClients() {
       try {
-        const response = await fetch('./clients.json');
+        const response = await fetch('./clients.json', { cache: 'no-store' });
         if (!response.ok) {
           throw new Error('HTTP ' + response.status);
         }
