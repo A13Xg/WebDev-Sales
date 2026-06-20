@@ -1,0 +1,15 @@
+{
+  "clients": [
+    {
+      "businessName": "Green Leaf Landscaping",
+      "slug": "green-leaf-landscaping",
+      "industry": "Home Services",
+      "businessType": "Landscaping",
+      "status": "pending",
+      "domain": null,
+      "themeRef": null,
+      "generatedAt": null,
+      "notes": "First placeholder. Phase 2 will generate this site."
+    }
+  ]
+}
