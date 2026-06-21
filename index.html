@@ -315,6 +315,8 @@
   </div>
 
   <script>
+    var BASE_PATH = '/WebDev-Sales/';
+
     /**
      * escapeHtml — XSS prevention for dynamic content insertion.
      * Uses DOM textContent assignment which the browser HTML-encodes automatically.
@@ -396,7 +398,7 @@
      */
     function copyDemoUrl(slug, evt) {
       var btn = evt && evt.target ? evt.target : null;
-      var url = '/' + slug + '/';
+      var url = window.location.origin + BASE_PATH + slug + '/';
 
       navigator.clipboard.writeText(url).then(function() {
         console.log('Copied: ' + url);
