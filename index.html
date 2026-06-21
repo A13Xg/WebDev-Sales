@@ -230,6 +230,10 @@
       return div.innerHTML;
     }
 
+    function getDemoUrl(slug) {
+      return './' + slug + '/';
+    }
+
     /**
      * renderClientCards — build card DOM nodes for each client entry.
      * Uses DOM APIs throughout to avoid XSS via attribute or JS-string interpolation.
