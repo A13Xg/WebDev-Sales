@@ -177,6 +177,89 @@
     }
 
     /* =====================
+       Access Gate
+       ===================== */
+    #gate {
+      display: none;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-bg);
+    }
+
+    #gate.visible {
+      display: flex;
+    }
+
+    .gate-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: var(--space-2xl);
+      width: 100%;
+      max-width: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .gate-title {
+      font-size: var(--font-size-display);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-primary);
+      text-align: center;
+    }
+
+    .gate-label {
+      font-size: var(--font-size-label);
+      color: var(--color-text-secondary);
+      text-align: center;
+    }
+
+    .gate-input {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      color: var(--color-text-primary);
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body);
+      padding: var(--space-sm) var(--space-md);
+      width: 100%;
+      min-height: 44px;
+      outline: none;
+    }
+
+    .gate-input:focus {
+      border-color: var(--color-accent);
+    }
+
+    .gate-submit {
+      background-color: var(--color-accent);
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-bold);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      transition: background-color 0.15s ease;
+      width: 100%;
+    }
+
+    .gate-submit:hover {
+      background-color: #2563eb;
+    }
+
+    .gate-error {
+      color: #ef4444;
+      font-size: var(--font-size-label);
+      text-align: center;
+      min-height: 16px;
+    }
+
+    /* =====================
        Empty State
        ===================== */
     .empty-state {
@@ -209,7 +292,20 @@
   </style>
 </head>
 <body>
-  <div id="dashboard">
+  <div id="gate" role="main" aria-label="Access gate">
+    <div class="gate-card">
+      <h1 class="gate-title">Client Dashboard</h1>
+      <p class="gate-label">Enter access code to continue</p>
+      <form id="gate-form" autocomplete="off">
+        <input id="gate-input" class="gate-input" type="password" placeholder="Access code" aria-label="Access code" required>
+        <div style="height:var(--space-sm)"></div>
+        <button type="submit" class="gate-submit">Enter</button>
+        <p id="gate-error" class="gate-error" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="dashboard" style="display:none">
     <header>
       <h1>Client Dashboard</h1>
     </header>
@@ -345,7 +441,45 @@
       }
     }
 
-    document.addEventListener('DOMContentLoaded', loadClients);
+    async function hexDigest(text) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function initDashboard() {
+      const res = await fetch('./access-config.json', { cache: 'no-store' });
+      const cfg = await res.json();
+      const stored = sessionStorage.getItem('dashboard-auth');
+
+      if (stored === cfg.hash) {
+        document.getElementById('dashboard').style.display = '';
+        loadClients();
+        return;
+      }
+
+      const gate = document.getElementById('gate');
+      gate.classList.add('visible');
+
+      document.getElementById('gate-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const input = document.getElementById('gate-input');
+        const errorEl = document.getElementById('gate-error');
+        const digest = await hexDigest(input.value);
+        if (digest === cfg.hash) {
+          sessionStorage.setItem('dashboard-auth', digest);
+          gate.classList.remove('visible');
+          gate.style.display = 'none';
+          document.getElementById('dashboard').style.display = '';
+          loadClients();
+        } else {
+          errorEl.textContent = 'Incorrect access code.';
+          input.value = '';
+          input.focus();
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initDashboard);
   </script>
 </body>
 </html>
