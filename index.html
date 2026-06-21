@@ -447,8 +447,16 @@
     }
 
     async function initDashboard() {
-      const res = await fetch('./access-config.json', { cache: 'no-store' });
-      const cfg = await res.json();
+      let cfg;
+      try {
+        const res = await fetch('./access-config.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        cfg = await res.json();
+      } catch (err) {
+        console.error('access-config.json load failed:', err);
+        document.getElementById('gate').classList.add('visible');
+        return;
+      }
       const stored = sessionStorage.getItem('dashboard-auth');
 
       if (stored === cfg.hash) {
