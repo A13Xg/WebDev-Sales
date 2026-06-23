@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lens &amp; Light Photography Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Spacing — 8-point scale */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+      --space-4xl: 96px;
+
+      /* Typography */
+      --font-family-display: 'Cormorant Garamond', Georgia, serif;
+      --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-size-xs: 11px;
+      --font-size-label: 12px;
+      --font-size-body: 15px;
+      --font-size-lead: 17px;
+      --font-size-heading-sm: 22px;
+      --font-size-heading: 32px;
+      --font-size-display: 60px;
+      --font-size-display-lg: 80px;
+      --font-weight-light: 300;
+      --font-weight-regular: 400;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 600;
+
+      /* Colors — dark, high-contrast gallery palette */
+      --color-bg: #0b0b0b;
+      --color-surface: #141414;
+      --color-surface-raised: #1c1c1c;
+      --color-accent: #c8a97e;
+      --color-accent-light: #e0c49e;
+      --color-accent-muted: rgba(200, 169, 126, 0.35);
+      --color-text-primary: #f5f0e8;
+      --color-text-secondary: #a89f94;
+      --color-text-muted: #5c5750;
+      --color-border: #2a2624;
+      --color-border-light: rgba(200, 169, 126, 0.18);
+
+      /* Radii */
+      --radius-sm: 2px;
+      --radius-md: 4px;
+      --radius-lg: 8px;
+
+      /* Shadows */
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.45);
+      --shadow-md: 0 6px 24px rgba(0,0,0,0.6);
+      --shadow-lg: 0 12px 48px rgba(0,0,0,0.75);
+
+      /* Transitions */
+      --transition-fast: 0.2s ease;
+      --transition-base: 0.32s ease;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-light);
+      color: var(--color-text-primary);
+      background-color: var(--color-bg);
+      line-height: 1.7;
+    }
+
+    /* ——————————————————————————
+       NAV
+    —————————————————————————— */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background-color: rgba(11, 11, 11, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+
+    .nav__brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav__brand-name {
+      font-family: var(--font-family-display);
+      font-size: 20px;
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.06em;
+      color: var(--color-text-primary);
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    .nav__brand-tagline {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-light);
+      color: var(--color-text-muted);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-top: var(--space-xs);
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2xl);
+      list-style: none;
+    }
+
+    .nav__links a {
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .nav__links a:hover {
+      color: var(--color-text-primary);
+    }
+
+    .nav__cta {
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      border: 1px solid var(--color-accent-muted);
+      padding: var(--space-sm) var(--space-lg);
+      text-decoration: none;
+      transition: color var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .nav__cta:hover {
+      color: var(--color-bg);
+      background-color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: var(--space-sm);
+      min-width: 44px;
+      min-height: 44px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav__hamburger span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background-color: var(--color-text-primary);
+    }
+
+    /* ——————————————————————————
+       HERO
+    —————————————————————————— */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.55);
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: var(--space-4xl) var(--space-xl);
+    }
+
+    .hero__label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero__title {
+      font-family: var(--font-family-display);
+      font-size: var(--font-size-display);
+      font-weight: var(--font-weight-light);
+      color: var(--color-text-primary);
+      line-height: 1.06;
+      max-width: 800px;
+      margin-bottom: var(--space-xl);
+      letter-spacing: -0.01em;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: var(--space-lg);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-text-primary);
+      border: 1px solid rgba(245, 240, 232, 0.3);
+      padding: var(--space-md) var(--space-xl);
+      text-decoration: none;
+      min-height: 48px;
+      transition: border-color var(--transition-fast), color var(--transition-fast);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--color-text-primary);
+    }
+
+    .btn-accent {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-bg);
+      background-color: var(--color-accent);
+      padding: var(--space-md) var(--space-xl);
+      text-decoration: none;
+      min-height: 48px;
+      transition: background-color var(--transition-fast);
+    }
+
+    .btn-accent:hover {
+      background-color: var(--color-accent-light);
+    }
+
+    /* ——————————————————————————
+       SECTION SHARED
+    —————————————————————————— */
+    .section {
+      padding: var(--space-4xl) var(--space-xl);
+    }
+
+    .section__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-md);
+    }
+
+    .section-title {
+      font-family: var(--font-family-display);
+      font-size: var(--font-size-heading);
+      font-weight: var(--font-weight-light);
+      color: var(--color-text-primary);
+      line-height: 1.2;
+      margin-bottom: var(--space-lg);
+      letter-spacing: -0.01em;
+    }
+
+    .section-body {
+      font-size: var(--font-size-lead);
+      font-weight: var(--font-weight-light);
+      color: var(--color-text-secondary);
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    /* ——————————————————————————
+       GALLERY GRID
+    —————————————————————————— */
+    .gallery {
+      background-color: var(--color-bg);
+      padding-top: var(--space-3xl);
+    }
+
+    .gallery__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: var(--space-2xl);
+      gap: var(--space-xl);
+    }
+
+    .gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto;
+      gap: var(--space-sm);
+    }
+
+    .gallery__item {
+      overflow: hidden;
+    }
+
+    .gallery__item:nth-child(1) { grid-column: span 7; grid-row: span 2; }
+    .gallery__item:nth-child(2) { grid-column: span 5; }
+    .gallery__item:nth-child(3) { grid-column: span 5; }
+    .gallery__item:nth-child(4) { grid-column: span 4; }
+    .gallery__item:nth-child(5) { grid-column: span 4; }
+    .gallery__item:nth-child(6) { grid-column: span 4; }
+
+    .gallery__item img {
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--transition-base), filter var(--transition-base);
+      filter: brightness(0.9);
+    }
+
+    .gallery__item:hover img {
+      transform: scale(1.03);
+      filter: brightness(1);
+    }
+
+    /* ——————————————————————————
+       SERVICES
+    —————————————————————————— */
+    .services {
+      background-color: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .services__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--space-4xl);
+      align-items: start;
+    }
+
+    .services__list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+    }
+
+    .service-item {
+      padding: var(--space-xl);
+      border: 1px solid var(--color-border);
+      border-top: 2px solid var(--color-accent);
+      background-color: var(--color-surface-raised);
+    }
+
+    .service-item__title {
+      font-family: var(--font-family-display);
+      font-size: var(--font-size-heading-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .service-item__desc {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-light);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ——————————————————————————
+       ABOUT
+    —————————————————————————— */
+    .about {
+      background-color: var(--color-bg);
+    }
+
+    .about__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4xl);
+      align-items: center;
+    }
+
+    .about__image-wrap {
+      position: relative;
+    }
+
+    .about__image-wrap img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about__accent-line {
+      position: absolute;
+      top: var(--space-xl);
+      left: calc(-1 * var(--space-xl));
+      width: 3px;
+      height: 120px;
+      background-color: var(--color-accent);
+    }
+
+    .about__body {
+      font-size: var(--font-size-lead);
+      font-weight: var(--font-weight-light);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--space-lg);
+    }
+
+    .about__sig {
+      font-family: var(--font-family-display);
+      font-size: var(--font-size-heading-sm);
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    /* ——————————————————————————
+       PROCESS
+    —————————————————————————— */
+    .process {
+      background-color: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .process__header {
+      text-align: center;
+      margin-bottom: var(--space-3xl);
+    }
+
+    .process__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-xl);
+    }
+
+    .process__step {
+      padding: var(--space-xl);
+      border-left: 1px solid var(--color-border);
+    }
+
+    .process__step:first-child {
+      border-left: none;
+    }
+
+    .process__step-num {
+      font-family: var(--font-family-display);
+      font-size: 48px;
+      font-weight: var(--font-weight-light);
+      color: var(--color-accent-muted);
+      line-height: 1;
+      margin-bottom: var(--space-md);
+    }
+
+    .process__step-title {
+      font-family: var(--font-family-display);
+      font-size: var(--font-size-heading-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .process__step-desc {
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-light);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ——————————————————————————
+       TESTIMONIALS
+    —————————————————————————— */
+    .testimonials {
+      background-color: var(--color-bg);
+    }
+
+    .testimonials__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-xl);
+    }
+
+    .testimonials__header {
+      text-align: center;
+      margin-bottom: var(--space-3xl);
+    }
+
+    .testimonial-card {
+      padding: var(--space-xl);
+      border: 1px solid var(--color-border);
+      border-bottom: 2px solid var(--color-accent);
+      background-color: var(--color-surface);
+    }
+
+    .testimonial-card__quote {
+      font-family: var(--font-family-display);
+      font-size: var(--font-size-lead);
+      font-style: italic;
+      font-weight: var(--font-weight-light);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: var(--space-lg);
+    }
+
+    .testimonial-card__author {
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+    }
+
+    /* ——————————————————————————
+       CONTACT
+    —————————————————————————— */
+    .contact {
+      background-color: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .contact__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4xl);
+      align-items: start;
+    }
+
+    .contact__info {
+      font-size: var(--font-size-lead);
+      font-weight: var(--font-weight-light);
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .contact__detail {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .contact__detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .contact__detail-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+    }
+
+    .contact__detail-value {
+      font-size: var(--font-size-body);
+      color: var(--color-text-secondary);
+    }
+
+    .contact__form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .form-label {
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-light);
+      color: var(--color-text-primary);
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-text-muted);
+      padding: var(--space-md) var(--space-sm);
+      outline: none;
+      transition: border-color var(--transition-fast);
+      min-height: 44px;
+    }
+
+    .form-textarea {
+      height: 110px;
+      resize: vertical;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-bottom-color: var(--color-accent);
+    }
+
+    .form-select option {
+      background-color: var(--color-surface);
+      color: var(--color-text-primary);
+    }
+
+    .form-submit {
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-bg);
+      background-color: var(--color-accent);
+      border: none;
+      padding: var(--space-md) var(--space-xl);
+      cursor: pointer;
+      min-height: 48px;
+      transition: background-color var(--transition-fast);
+    }
+
+    .form-submit:hover {
+      background-color: var(--color-accent-light);
+    }
+
+    /* ——————————————————————————
+       FOOTER
+    —————————————————————————— */
+    .footer {
+      background-color: var(--color-bg);
+      border-top: 1px solid var(--color-border);
+      padding: var(--space-2xl) var(--space-xl);
+    }
+
+    .footer__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .footer__brand {
+      font-family: var(--font-family-display);
+      font-size: var(--font-size-heading-sm);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+    }
+
+    .footer__copy {
+      font-size: var(--font-size-label);
+      color: var(--color-text-muted);
+    }
+
+    .footer__links {
+      display: flex;
+      gap: var(--space-xl);
+      list-style: none;
+    }
+
+    .footer__links a {
+      font-size: var(--font-size-label);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .footer__links a:hover {
+      color: var(--color-accent);
+    }
+
+    /* ——————————————————————————
+       RESPONSIVE
+    —————————————————————————— */
+    @media (max-width: 1023px) {
+      .gallery__item:nth-child(1) { grid-column: span 12; grid-row: span 1; }
+      .gallery__item:nth-child(2) { grid-column: span 6; }
+      .gallery__item:nth-child(3) { grid-column: span 6; }
+      .gallery__item:nth-child(4) { grid-column: span 4; }
+      .gallery__item:nth-child(5) { grid-column: span 4; }
+      .gallery__item:nth-child(6) { grid-column: span 4; }
+      .services__inner {
+        grid-template-columns: 1fr;
+      }
+      .about__inner {
+        grid-template-columns: 1fr;
+      }
+      .about__accent-line {
+        display: none;
+      }
+      .process__steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .testimonials__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .contact__inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 767px) {
+      :root {
+        --font-size-display: 40px;
+      }
+      .nav__links, .nav__cta {
+        display: none;
+      }
+      .nav__hamburger {
+        display: flex;
+      }
+      .gallery__grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .gallery__item {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+      }
+      .services__list {
+        grid-template-columns: 1fr;
+      }
+      .process__steps {
+        grid-template-columns: 1fr;
+      }
+      .process__step {
+        border-left: none;
+        border-top: 1px solid var(--color-border);
+        padding-top: var(--space-xl);
+      }
+      .process__step:first-child {
+        border-top: none;
+      }
+      .testimonials__grid {
+        grid-template-columns: 1fr;
+      }
+      .footer__inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .footer__links {
+        justify-content: center;
+      }
+    }
+
+    .nav.is-open .nav__links {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background-color: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-md) var(--space-xl) var(--space-lg);
+      gap: var(--space-md);
+    }
+
+    .nav.is-open .nav__cta {
+      display: block;
+      text-align: center;
+      padding: var(--space-md);
+      margin: 0 var(--space-xl) var(--space-md);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <div class="nav__brand">
+        <a href="#" class="nav__brand-name" aria-label="Lens and Light Photography Studio home">Lens &amp; Light Studio</a>
+        <span class="nav__brand-tagline">Portrait &amp; Event Photography</span>
+      </div>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#gallery">Portfolio</a></li>
+        <li><a href="#services">Sessions</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Book</a></li>
+      </ul>
+      <a href="#contact" class="nav__cta">Book a Session</a>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" role="banner">
+    <div class="hero__bg" aria-hidden="true">
+      <img
+        src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1800&auto=format&fit=crop&q=80"
+        alt=""
+        width="1800"
+        height="1200"
+      >
+    </div>
+    <div class="hero__content">
+      <p class="hero__label">Portland, OR · Est. 2016</p>
+      <h1 class="hero__title">Where <em>light</em> meets<br>the stories you carry</h1>
+      <div class="hero__actions">
+        <a href="#gallery" class="btn-ghost">View Portfolio</a>
+        <a href="#contact" class="btn-accent">Book a Session</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- GALLERY -->
+  <section class="gallery section" id="gallery" aria-labelledby="gallery-heading">
+    <div class="section__inner">
+      <div class="gallery__header">
+        <div>
+          <p class="section-label">Selected Work</p>
+          <h2 class="section-title" id="gallery-heading">Portrait &amp; Event Photography</h2>
+        </div>
+        <a href="#contact" class="btn-accent">Book Your Session</a>
+      </div>
+      <div class="gallery__grid">
+        <div class="gallery__item">
+          <img
+            src="https://images.unsplash.com/photo-1519741497674-611481863552?w=900&auto=format&fit=crop&q=80"
+            alt="Bride and groom sharing a quiet moment during golden hour at their outdoor wedding ceremony"
+            loading="lazy"
+            width="900"
+            height="600"
+          >
+        </div>
+        <div class="gallery__item">
+          <img
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80"
+            alt="Professional corporate headshot of a man in business attire with soft studio lighting"
+            loading="lazy"
+            width="600"
+            height="400"
+          >
+        </div>
+        <div class="gallery__item">
+          <img
+            src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=600&auto=format&fit=crop&q=80"
+            alt="Family portrait session in a park with warm autumn light"
+            loading="lazy"
+            width="600"
+            height="400"
+          >
+        </div>
+        <div class="gallery__item">
+          <img
+            src="https://images.unsplash.com/photo-1529636798458-92182e662485?w=600&auto=format&fit=crop&q=80"
+            alt="Wedding reception detail shot of elegantly decorated table arrangements"
+            loading="lazy"
+            width="600"
+            height="380"
+          >
+        </div>
+        <div class="gallery__item">
+          <img
+            src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&auto=format&fit=crop&q=80"
+            alt="Professional woman's brand portrait in a bright modern office setting"
+            loading="lazy"
+            width="600"
+            height="380"
+          >
+        </div>
+        <div class="gallery__item">
+          <img
+            src="https://images.unsplash.com/photo-1516535794938-6063878f08cc?w=600&auto=format&fit=crop&q=80"
+            alt="Couple portrait with dramatic backlighting at dusk"
+            loading="lazy"
+            width="600"
+            height="380"
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services section" id="services" aria-labelledby="services-heading">
+    <div class="services__inner">
+      <div class="services__intro">
+        <p class="section-label">What We Offer</p>
+        <h2 class="section-title" id="services-heading">Sessions Tailored to Your Story</h2>
+        <p class="section-body">Every session begins with a conversation. We get to know you, your vision, and what you want to walk away with — then we craft an experience that delivers it.</p>
+      </div>
+      <div class="services__list">
+        <article class="service-item">
+          <h3 class="service-item__title">Wedding Photography</h3>
+          <p class="service-item__desc">Full-day and half-day wedding coverage. Documentary, editorial, or a blend — we follow the day as it unfolds and return images that feel timeless.</p>
+        </article>
+        <article class="service-item">
+          <h3 class="service-item__title">Corporate Headshots</h3>
+          <p class="service-item__desc">Individual and team headshots for LinkedIn, company websites, and press materials. On-location or in-studio with a quick, professional process.</p>
+        </article>
+        <article class="service-item">
+          <h3 class="service-item__title">Family Portraits</h3>
+          <p class="service-item__desc">Relaxed, natural sessions that capture who you are right now. In-studio or on location — we know how to work with kids, pets, and the occasional chaos.</p>
+        </article>
+        <article class="service-item">
+          <h3 class="service-item__title">Brand Photography</h3>
+          <p class="service-item__desc">Lifestyle and product imagery for founders, creatives, and small businesses. Consistent visuals that tell your brand story across every platform.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about section" id="about" aria-labelledby="about-heading">
+    <div class="about__inner">
+      <div class="about__image-wrap">
+        <div class="about__accent-line" aria-hidden="true"></div>
+        <img
+          src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&auto=format&fit=crop&q=80"
+          alt="Photographer adjusting camera settings while reviewing images in a photography studio"
+          loading="lazy"
+          width="800"
+          height="520"
+        >
+      </div>
+      <div class="about__text">
+        <p class="section-label">About the Studio</p>
+        <h2 class="section-title" id="about-heading">Ten Years of Chasing the Perfect Light</h2>
+        <p class="about__body">
+          Lens &amp; Light Photography Studio was founded on one conviction: that a photograph should make you feel something. Not just document a moment, but hold it — give it texture, atmosphere, and the ability to transport you back.
+        </p>
+        <p class="about__body">
+          Our team brings a decade of experience shooting weddings, portraits, and brand campaigns across the Pacific Northwest. We've built a studio space designed for natural light, and we carry that same philosophy into every location shoot: we don't overpower a scene, we learn to read it.
+        </p>
+        <p class="about__sig">— The Lens &amp; Light Team</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process section" aria-labelledby="process-heading">
+    <div class="section__inner">
+      <div class="process__header">
+        <p class="section-label">How It Works</p>
+        <h2 class="section-title" id="process-heading">A Session from Inquiry to Delivery</h2>
+      </div>
+      <div class="process__steps">
+        <div class="process__step">
+          <div class="process__step-num">01</div>
+          <h3 class="process__step-title">Inquiry</h3>
+          <p class="process__step-desc">Fill out the booking form with your session type, preferred dates, and a bit about what you're envisioning. We respond within 24 hours.</p>
+        </div>
+        <div class="process__step">
+          <div class="process__step-num">02</div>
+          <h3 class="process__step-title">Consultation</h3>
+          <p class="process__step-desc">A short call or exchange to understand your goals, walk through the session plan, select a location, and confirm the booking.</p>
+        </div>
+        <div class="process__step">
+          <div class="process__step-num">03</div>
+          <h3 class="process__step-title">The Shoot</h3>
+          <p class="process__step-desc">We come prepared, we direct with a light touch, and we make sure you're comfortable. The best images come from people who are at ease.</p>
+        </div>
+        <div class="process__step">
+          <div class="process__step-num">04</div>
+          <h3 class="process__step-title">Delivery</h3>
+          <p class="process__step-desc">Fully retouched, high-resolution images delivered via private online gallery within 2–3 weeks. Print-ready files included with every package.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials section" aria-labelledby="testimonials-heading">
+    <div class="section__inner">
+      <div class="testimonials__header">
+        <p class="section-label">Client Words</p>
+        <h2 class="section-title" id="testimonials-heading">What Clients Say</h2>
+      </div>
+      <div class="testimonials__grid">
+        <blockquote class="testimonial-card">
+          <p class="testimonial-card__quote">"Our wedding photos are more beautiful than I could have imagined. They didn't just capture what happened — they captured how it felt. We've looked at them every single week."</p>
+          <footer class="testimonial-card__author">— Alicia &amp; Nathan, Wedding Clients</footer>
+        </blockquote>
+        <blockquote class="testimonial-card">
+          <p class="testimonial-card__quote">"I needed new headshots for a board presentation and a LinkedIn refresh. The studio made it effortless — professional setup, quick session, and the images look exactly how I wanted."</p>
+          <footer class="testimonial-card__author">— Michelle C., Corporate Client</footer>
+        </blockquote>
+        <blockquote class="testimonial-card">
+          <p class="testimonial-card__quote">"The brand shoot transformed how I show up online. My clients constantly ask who shot my images. The whole team just gets it — the light, the angles, the story."</p>
+          <footer class="testimonial-card__author">— Jordan K., Brand Photography Client</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / BOOKING -->
+  <section class="contact section" id="contact" aria-labelledby="contact-heading">
+    <div class="contact__inner">
+      <div class="contact__text">
+        <p class="section-label">Book a Session</p>
+        <h2 class="section-title" id="contact-heading">Let's Make Something Beautiful</h2>
+        <p class="contact__info">We'd love to hear about your project. Fill out the form and we'll be in touch within one business day to discuss availability and next steps.</p>
+        <div class="contact__detail">
+          <div class="contact__detail-item">
+            <span class="contact__detail-label">Studio Location</span>
+            <span class="contact__detail-value">842 SE Morrison St, Portland, OR 97214</span>
+          </div>
+          <div class="contact__detail-item">
+            <span class="contact__detail-label">Email</span>
+            <span class="contact__detail-value">hello@lensandlightstudio.com</span>
+          </div>
+          <div class="contact__detail-item">
+            <span class="contact__detail-label">Phone</span>
+            <span class="contact__detail-value">(503) 555-0218</span>
+          </div>
+          <div class="contact__detail-item">
+            <span class="contact__detail-label">Studio Hours</span>
+            <span class="contact__detail-value">Tuesday–Saturday: 9am–6pm</span>
+          </div>
+        </div>
+      </div>
+      <form class="contact__form" aria-label="Session booking inquiry form">
+        <div class="form-group">
+          <label class="form-label" for="name">Your Name</label>
+          <input class="form-input" type="text" id="name" name="name" placeholder="Jane Smith" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="jane@example.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="session-type">Session Type</label>
+          <select class="form-select" id="session-type" name="session-type">
+            <option value="">Select a session type</option>
+            <option value="wedding">Wedding Photography</option>
+            <option value="headshots">Corporate Headshots</option>
+            <option value="family">Family Portrait</option>
+            <option value="brand">Brand Photography</option>
+            <option value="other">Something Else</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="date">Preferred Date(s)</label>
+          <input class="form-input" type="text" id="date" name="date" placeholder="e.g. October 2026, or flexible">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">Tell Us About Your Vision</label>
+          <textarea class="form-textarea" id="message" name="message" placeholder="What are you hoping to walk away with? Any details about location, style, or people involved…"></textarea>
+        </div>
+        <button class="form-submit" type="submit">Send Inquiry</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+      <span class="footer__brand">Lens &amp; Light Studio</span>
+      <nav aria-label="Footer navigation">
+        <ul class="footer__links">
+          <li><a href="#gallery">Portfolio</a></li>
+          <li><a href="#services">Sessions</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Book</a></li>
+        </ul>
+      </nav>
+      <p class="footer__copy">&copy; 2026 Lens &amp; Light Photography Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const hamburger = document.getElementById('hamburger');
+
+    hamburger.addEventListener('click', function() {
+      const isOpen = nav.classList.toggle('is-open');
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    document.querySelectorAll('.nav__links a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        nav.classList.remove('is-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.querySelector('.contact__form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('.form-submit');
+      const originalText = btn.textContent;
+      btn.textContent = 'Inquiry Sent!';
+      btn.disabled = true;
+      setTimeout(function() {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>

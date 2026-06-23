@@ -32,6 +32,39 @@
       "themeRef": "01-minimalist-portfolio",
       "generatedAt": "2026-06-22T21:30:00Z",
       "notes": "Personal developer portfolio and consulting site. Focus on web development services. Technical audience."
+    },
+    {
+      "businessName": "Artisan Coffee Roasters",
+      "slug": "artisan-coffee-roasters",
+      "industry": "Food & Beverage",
+      "businessType": "coffee roaster",
+      "status": "live",
+      "domain": "https://www.onyx.coffee",
+      "themeRef": "02-gourmet-restaurant",
+      "generatedAt": "2026-06-22T22:00:00Z",
+      "notes": "Independent specialty coffee roaster. Emphasize craft, origin sourcing, and the roasting process. Warm earthy tones with a refined feel."
+    },
+    {
+      "businessName": "Quick Response Plumbing",
+      "slug": "quick-response-plumbing",
+      "industry": "Home Services",
+      "businessType": "plumber",
+      "status": "live",
+      "domain": null,
+      "themeRef": "10-law-firm",
+      "generatedAt": "2026-06-22T22:05:00Z",
+      "notes": "Residential and commercial plumbing, 24/7 emergency service, licensed and insured. Trust, reliability, speed. Blue and white color scheme. Services: drain clearing, pipe repair, water heater installation, emergency calls."
+    },
+    {
+      "businessName": "Lens & Light Photography Studio",
+      "slug": "lens-and-light-studio",
+      "industry": "Creative Services",
+      "businessType": "photography studio",
+      "status": "live",
+      "domain": null,
+      "themeRef": "01-minimalist-portfolio",
+      "generatedAt": "2026-06-22T22:10:00Z",
+      "notes": "Portrait and event photography studio. Elegant, minimal, gallery-forward. Services: weddings, corporate headshots, family portraits, brand photography. Dark background with high contrast imagery presentation."
     }
   ]
 }
