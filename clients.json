@@ -5,10 +5,10 @@
       "slug": "green-leaf-landscaping",
       "industry": "Home Services",
       "businessType": "Landscaping",
-      "status": "pending",
+      "status": "live",
       "domain": null,
-      "themeRef": null,
-      "generatedAt": null,
+      "themeRef": "11-outdoor-trail-guide",
+      "generatedAt": "2026-06-22T21:00:00Z",
       "notes": "First placeholder. Phase 2 will generate this site."
     },
     {
@@ -21,6 +21,17 @@
       "themeRef": "06-fitness-studio",
       "generatedAt": "2026-06-20T21:30:00Z",
       "notes": "Holistic, peaceful vibe. Warm colors (oranges, golds). Emphasize class schedule and member testimonials. Founder-led small studio."
+    },
+    {
+      "businessName": "Alex Goodman - Developer",
+      "slug": "agoodman-dev",
+      "industry": "Technology",
+      "businessType": "Freelance Developer",
+      "status": "live",
+      "domain": "https://agoodman.io",
+      "themeRef": "01-minimalist-portfolio",
+      "generatedAt": "2026-06-22T21:30:00Z",
+      "notes": "Personal developer portfolio and consulting site. Focus on web development services. Technical audience."
     }
   ]
 }

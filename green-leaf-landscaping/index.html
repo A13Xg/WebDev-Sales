@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Green Leaf Landscaping</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Spacing (8-point scale) */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+      --space-3xl: 64px;
+
+      /* Typography */
+      --font-family-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-family-body: 'Merriweather', Georgia, serif;
+      --font-size-label: 11px;
+      --font-size-body: 16px;
+      --font-size-heading: 24px;
+      --font-size-display: 42px;
+      --font-weight-regular: 400;
+      --font-weight-semibold: 600;
+      --font-weight-bold: 700;
+
+      /* Colors — nature-forward, trustworthy, grounded palette */
+      --color-bg: #f4f0eb;
+      --color-surface: #ffffff;
+      --color-surface-alt: #ecf5ee;
+      --color-accent: #2d6a4f;
+      --color-accent-dark: #1a3a2a;
+      --color-accent-light: #52b788;
+      --color-accent-muted: #b7e4c7;
+      --color-earth: #c4833a;
+      --color-earth-dark: #a8692e;
+      --color-earth-light: #e8c99a;
+      --color-text-primary: #1c2a1e;
+      --color-text-secondary: #5a6b5c;
+      --color-text-light: #8a9e8c;
+      --color-border: #d6e8d9;
+      --color-nav-bg: rgba(26, 58, 42, 0.97);
+      --color-hero-overlay: rgba(26, 58, 42, 0.58);
+      --color-footer-bg: #1a3a2a;
+      --color-footer-text: #b7e4c7;
+
+      /* Shadows & Radius */
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.16);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --transition: 0.3s ease;
+
+      /* Layout */
+      --container-max: 1140px;
+      --nav-height: 68px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-family-body);
+      font-size: var(--font-size-body);
+      background-color: var(--color-bg);
+      color: var(--color-text-primary);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .nav-logo, .badge {
+      font-family: var(--font-family-heading);
+      line-height: 1.2;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ── Utility ──────────────────────────────────────────────── */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-lg);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-earth);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-accent-dark);
+      margin-bottom: var(--space-md);
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--color-text-secondary);
+      max-width: 540px;
+      line-height: 1.8;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background-color: var(--color-accent);
+      color: var(--color-surface);
+      font-family: var(--font-family-heading);
+      font-size: 0.9rem;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: var(--space-md) var(--space-xl);
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--color-accent);
+      cursor: pointer;
+      transition: background-color var(--transition), transform var(--transition);
+      min-height: 44px;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-accent-dark);
+      border-color: var(--color-accent-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background-color: transparent;
+      color: var(--color-surface);
+      font-family: var(--font-family-heading);
+      font-size: 0.9rem;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: var(--space-md) var(--space-xl);
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--color-surface);
+      cursor: pointer;
+      transition: background-color var(--transition), color var(--transition);
+      min-height: 44px;
+    }
+
+    .btn-outline:hover {
+      background-color: var(--color-surface);
+      color: var(--color-accent-dark);
+    }
+
+    /* ── Navigation ───────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background-color: var(--color-nav-bg);
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+    }
+
+    .nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      color: var(--color-surface);
+      font-size: 1.2rem;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.04em;
+    }
+
+    .nav-logo-icon {
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xl);
+    }
+
+    .nav-links a {
+      color: var(--color-footer-text);
+      font-family: var(--font-family-heading);
+      font-size: 0.85rem;
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color var(--transition);
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links a:hover { color: var(--color-surface); }
+
+    .nav-cta {
+      background-color: var(--color-earth);
+      color: var(--color-surface);
+      font-family: var(--font-family-heading);
+      font-size: 0.8rem;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-sm);
+      transition: background-color var(--transition);
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-cta:hover { background-color: var(--color-earth-dark); }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-sm);
+      min-height: 44px;
+      min-width: 44px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background-color: var(--color-surface);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      right: 0;
+      background-color: var(--color-accent-dark);
+      z-index: 99;
+      padding: var(--space-lg);
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .nav-mobile.open { display: flex; }
+
+    .nav-mobile a {
+      color: var(--color-footer-text);
+      font-family: var(--font-family-heading);
+      font-size: 1rem;
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid rgba(183,228,199,0.2);
+    }
+
+    /* ── Hero ─────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--nav-height);
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&auto=format&fit=crop&q=80');
+      background-size: cover;
+      background-position: center 40%;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: var(--color-hero-overlay);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: var(--color-surface);
+      max-width: 640px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-family: var(--font-family-heading);
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-accent-muted);
+      margin-bottom: var(--space-md);
+      border: 1px solid rgba(183,228,199,0.4);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: 20px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 5vw, var(--font-size-display));
+      font-weight: var(--font-weight-bold);
+      line-height: 1.12;
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero-title span { color: var(--color-accent-light); }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.88);
+      max-width: 520px;
+      margin-bottom: var(--space-2xl);
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .hero-trust {
+      position: relative;
+      z-index: 2;
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: 1px solid rgba(255,255,255,0.18);
+      display: flex;
+      gap: var(--space-2xl);
+      flex-wrap: wrap;
+    }
+
+    .trust-stat {
+      text-align: center;
+    }
+
+    .trust-stat-number {
+      font-family: var(--font-family-heading);
+      font-size: 1.8rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-surface);
+    }
+
+    .trust-stat-label {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.7);
+      font-family: var(--font-family-heading);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── Services ─────────────────────────────────────────────── */
+    .services {
+      padding: var(--space-3xl) 0;
+      background-color: var(--color-surface);
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .services-header .section-sub {
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-xl);
+    }
+
+    .service-card {
+      background-color: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-xl);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .service-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      background-color: var(--color-accent-muted);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .service-title {
+      font-family: var(--font-family-heading);
+      font-size: 1.05rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-accent-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .service-desc {
+      font-size: 0.93rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── About ────────────────────────────────────────────────── */
+    .about {
+      padding: var(--space-3xl) 0;
+      background-color: var(--color-bg);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3xl);
+      align-items: center;
+    }
+
+    .about-image-wrap {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .about-image-wrap img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+    }
+
+    .about-badge-pill {
+      position: absolute;
+      bottom: var(--space-lg);
+      left: var(--space-lg);
+      background-color: var(--color-accent);
+      color: var(--color-surface);
+      font-family: var(--font-family-heading);
+      font-size: 0.8rem;
+      font-weight: var(--font-weight-bold);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+    }
+
+    .about-text .badge { margin-bottom: var(--space-sm); }
+
+    .about-text .section-title { margin-bottom: var(--space-md); }
+
+    .about-text p {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-md);
+      line-height: 1.8;
+    }
+
+    .about-values {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .value-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
+
+    .value-dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--color-accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+
+    .value-text {
+      font-size: 0.95rem;
+      color: var(--color-text-secondary);
+    }
+
+    .value-text strong {
+      color: var(--color-accent-dark);
+      font-family: var(--font-family-heading);
+    }
+
+    /* ── Process ──────────────────────────────────────────────── */
+    .process {
+      padding: var(--space-3xl) 0;
+      background-color: var(--color-surface-alt);
+    }
+
+    .process-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .process-header .section-sub { margin: 0 auto; }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: var(--space-xl);
+      counter-reset: step-counter;
+    }
+
+    .process-step {
+      position: relative;
+      padding: var(--space-xl);
+      background-color: var(--color-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      counter-increment: step-counter;
+    }
+
+    .process-step::before {
+      content: "0" counter(step-counter);
+      position: absolute;
+      top: var(--space-lg);
+      right: var(--space-lg);
+      font-family: var(--font-family-heading);
+      font-size: 2.2rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-border);
+      line-height: 1;
+    }
+
+    .process-step-title {
+      font-family: var(--font-family-heading);
+      font-size: 1rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-accent-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    .process-step-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── Testimonials ─────────────────────────────────────────── */
+    .testimonials {
+      padding: var(--space-3xl) 0;
+      background-color: var(--color-accent-dark);
+    }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .testimonials-header .section-title { color: var(--color-surface); }
+    .testimonials-header .badge { color: var(--color-accent-muted); }
+    .testimonials-header .section-sub {
+      color: rgba(255,255,255,0.7);
+      margin: 0 auto;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-xl);
+    }
+
+    .testimonial-card {
+      background-color: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-md);
+      padding: var(--space-xl);
+    }
+
+    .testimonial-stars {
+      color: var(--color-earth);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-bottom: var(--space-md);
+    }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.8;
+      font-style: italic;
+      margin-bottom: var(--space-lg);
+    }
+
+    .testimonial-author {
+      font-family: var(--font-family-heading);
+      font-size: 0.85rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-accent-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .testimonial-location {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: var(--space-xs);
+    }
+
+    /* ── CTA Banner ───────────────────────────────────────────── */
+    .cta-banner {
+      padding: var(--space-3xl) 0;
+      background-color: var(--color-earth);
+    }
+
+    .cta-banner-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--space-xl);
+    }
+
+    .cta-banner-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-surface);
+      max-width: 560px;
+    }
+
+    .cta-banner-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 440px;
+    }
+
+    .cta-banner-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      justify-content: center;
+    }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background-color: var(--color-surface);
+      color: var(--color-earth);
+      font-family: var(--font-family-heading);
+      font-size: 0.9rem;
+      font-weight: var(--font-weight-bold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: var(--space-md) var(--space-xl);
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--color-surface);
+      cursor: pointer;
+      transition: background-color var(--transition), color var(--transition);
+      min-height: 44px;
+    }
+
+    .btn-white:hover {
+      background-color: transparent;
+      color: var(--color-surface);
+    }
+
+    /* ── Contact ──────────────────────────────────────────────── */
+    .contact {
+      padding: var(--space-3xl) 0;
+      background-color: var(--color-bg);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: var(--space-3xl);
+      align-items: start;
+    }
+
+    .contact-info .section-title { margin-bottom: var(--space-md); }
+
+    .contact-info p {
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-xl);
+      line-height: 1.8;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
+
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      background-color: var(--color-accent-muted);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item-text {
+      font-size: 0.93rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    .contact-item-label {
+      font-family: var(--font-family-heading);
+      font-size: 0.78rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-accent-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 2px;
+    }
+
+    .contact-form {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-2xl);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-title {
+      font-family: var(--font-family-heading);
+      font-size: 1.15rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-accent-dark);
+      margin-bottom: var(--space-xl);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+
+    .form-label {
+      font-family: var(--font-family-heading);
+      font-size: 0.78rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-accent-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-family-body);
+      font-size: 0.93rem;
+      color: var(--color-text-primary);
+      background-color: var(--color-bg);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      min-height: 44px;
+    }
+
+    .form-textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(45,106,79,0.12);
+    }
+
+    .form-submit {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────── */
+    footer {
+      background-color: var(--color-footer-bg);
+      color: var(--color-footer-text);
+      padding: var(--space-2xl) 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    .footer-logo {
+      font-family: var(--font-family-heading);
+      font-size: 1.1rem;
+      font-weight: var(--font-weight-bold);
+      color: var(--color-surface);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: var(--space-xl);
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--color-footer-text);
+      font-family: var(--font-family-heading);
+      font-size: 0.8rem;
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--color-surface); }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: rgba(183,228,199,0.55);
+    }
+
+    /* ── Responsive ───────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .hero { min-height: 90vh; }
+      .hero-actions { flex-direction: column; }
+      .hero-trust { gap: var(--space-xl); }
+
+      .about-grid { grid-template-columns: 1fr; }
+      .about-image-wrap img { height: 280px; }
+
+      .contact-grid { grid-template-columns: 1fr; }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-steps { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="#home" class="nav-logo">
+        <div class="nav-logo-icon" aria-hidden="true">🌿</div>
+        Green Leaf Landscaping
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#process">Our Process</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Get a Free Quote</a>
+      <button class="nav-hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <nav class="nav-mobile" id="mobileNav" aria-label="Mobile navigation">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#process">Our Process</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#contact">Get a Free Quote</a>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="home">
+    <div class="hero-bg" role="img" aria-label="Lush green lawn with manicured hedges"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-badge">Locally Owned &amp; Operated Since 2009</span>
+        <h1 class="hero-title">
+          Green Leaf Landscaping<br/>
+          <span>Transforms Outdoor Spaces</span>
+        </h1>
+        <p class="hero-sub">
+          From lush lawn care to custom garden design, we help homeowners and businesses across the area take pride in their property — every season of the year.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Get a Free Quote</a>
+          <a href="#services" class="btn-outline">View Our Services</a>
+        </div>
+      </div>
+      <div class="hero-trust" aria-label="Key statistics">
+        <div class="trust-stat">
+          <div class="trust-stat-number">15+</div>
+          <div class="trust-stat-label">Years in Business</div>
+        </div>
+        <div class="trust-stat">
+          <div class="trust-stat-number">500+</div>
+          <div class="trust-stat-label">Properties Served</div>
+        </div>
+        <div class="trust-stat">
+          <div class="trust-stat-number">4.9★</div>
+          <div class="trust-stat-label">Average Rating</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Services -->
+  <section class="services" id="services" aria-labelledby="services-heading">
+    <div class="container">
+      <div class="services-header">
+        <span class="badge">What We Do</span>
+        <h2 class="section-title" id="services-heading">Complete Landscaping Solutions</h2>
+        <p class="section-sub">
+          Whether you need routine upkeep or a full yard transformation, our crew handles it all — so you can enjoy your outdoor space without the hard work.
+        </p>
+      </div>
+      <div class="services-grid" role="list">
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">🌱</div>
+          <h3 class="service-title">Lawn Care &amp; Maintenance</h3>
+          <p class="service-desc">Regular mowing, edging, fertilization, and aeration to keep your lawn thick, green, and healthy throughout the growing season.</p>
+        </div>
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">🌺</div>
+          <h3 class="service-title">Garden &amp; Bed Design</h3>
+          <p class="service-desc">Custom planting plans that add color, texture, and curb appeal. We select plants suited to your soil, light, and local climate conditions.</p>
+        </div>
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">✂️</div>
+          <h3 class="service-title">Tree &amp; Shrub Trimming</h3>
+          <p class="service-desc">Professional pruning and shaping that promotes healthy growth, improves structure, and keeps your trees and hedges looking their best.</p>
+        </div>
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">🍂</div>
+          <h3 class="service-title">Seasonal Cleanup</h3>
+          <p class="service-desc">Spring and fall cleanups that clear debris, prepare beds for new growth, and leave your property looking crisp heading into any season.</p>
+        </div>
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">💧</div>
+          <h3 class="service-title">Irrigation &amp; Drainage</h3>
+          <p class="service-desc">Efficient sprinkler system installation, repair, and winterization — plus grading and drainage solutions to protect your yard from standing water.</p>
+        </div>
+        <div class="service-card" role="listitem">
+          <div class="service-icon" aria-hidden="true">🪨</div>
+          <h3 class="service-title">Mulching &amp; Hardscaping</h3>
+          <p class="service-desc">Fresh mulch installation, stone path edging, retaining walls, and patio prep that ties together your landscape's natural and structural elements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&auto=format&fit=crop&q=80"
+            alt="Green Leaf Landscaping crew member planting a garden bed"
+          />
+          <div class="about-badge-pill">Family-Owned Since 2009</div>
+        </div>
+        <div class="about-text">
+          <span class="badge">Our Story</span>
+          <h2 class="section-title" id="about-heading">Rooted in the Community We Serve</h2>
+          <p>
+            Green Leaf Landscaping started with a single truck and a belief that every property deserves to look its best. Over fifteen years later, we're proud to be the landscaping crew that neighbors trust and refer to their friends — season after season.
+          </p>
+          <p>
+            We're a local, family-run operation. That means when you call us, you get a real answer from someone who actually cares about your yard. No call centers, no subcontractors you've never met. Just our team, showing up on time and doing the job right.
+          </p>
+          <div class="about-values" role="list">
+            <div class="value-item" role="listitem">
+              <div class="value-dot" aria-hidden="true"></div>
+              <div class="value-text"><strong>Honest pricing</strong> — clear quotes before we start, no surprise charges when we're done</div>
+            </div>
+            <div class="value-item" role="listitem">
+              <div class="value-dot" aria-hidden="true"></div>
+              <div class="value-text"><strong>Reliable scheduling</strong> — we show up on the day we say we will, rain or shine</div>
+            </div>
+            <div class="value-item" role="listitem">
+              <div class="value-dot" aria-hidden="true"></div>
+              <div class="value-text"><strong>Licensed &amp; insured</strong> — full liability coverage on every job, residential and commercial</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="process" id="process" aria-labelledby="process-heading">
+    <div class="container">
+      <div class="process-header">
+        <span class="badge">How It Works</span>
+        <h2 class="section-title" id="process-heading">Simple from First Call to Finished Job</h2>
+        <p class="section-sub">We make it easy to get started. No confusing proposals, no waiting weeks for a callback.</p>
+      </div>
+      <div class="process-steps" role="list">
+        <div class="process-step" role="listitem">
+          <h3 class="process-step-title">Request a Free Quote</h3>
+          <p class="process-step-desc">Fill out our short contact form or call us directly. We'll confirm your request within one business day.</p>
+        </div>
+        <div class="process-step" role="listitem">
+          <h3 class="process-step-title">On-Site Assessment</h3>
+          <p class="process-step-desc">One of our crew leads visits your property, walks the space with you, and notes exactly what needs to be done.</p>
+        </div>
+        <div class="process-step" role="listitem">
+          <h3 class="process-step-title">Clear Written Estimate</h3>
+          <p class="process-step-desc">You receive a straightforward written quote with itemized services and pricing — no hidden fees or vague line items.</p>
+        </div>
+        <div class="process-step" role="listitem">
+          <h3 class="process-step-title">Work Begins on Schedule</h3>
+          <p class="process-step-desc">Once you approve, we lock in your date and show up ready to work. We clean up completely before we leave.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials" aria-labelledby="testimonials-heading">
+    <div class="container">
+      <div class="testimonials-header">
+        <span class="badge">Customer Reviews</span>
+        <h2 class="section-title" id="testimonials-heading">What Our Clients Say</h2>
+        <p class="section-sub">We let our work — and our neighbors — speak for us.</p>
+      </div>
+      <div class="testimonials-grid" role="list">
+        <article class="testimonial-card" role="listitem">
+          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+          <p class="testimonial-text">
+            "Green Leaf has been maintaining our front and back yard for three years now. Every time they come, the place looks absolutely immaculate. The team is polite, punctual, and genuinely takes pride in their work."
+          </p>
+          <div class="testimonial-author">Patricia M.</div>
+          <div class="testimonial-location">Homeowner</div>
+        </article>
+        <article class="testimonial-card" role="listitem">
+          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+          <p class="testimonial-text">
+            "We hired them for a full spring cleanup and garden bed redesign. The before-and-after difference was dramatic. Honest pricing, great communication, and they finished ahead of schedule. Highly recommend."
+          </p>
+          <div class="testimonial-author">David &amp; Karen R.</div>
+          <div class="testimonial-location">Property Owners</div>
+        </article>
+        <article class="testimonial-card" role="listitem">
+          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+          <p class="testimonial-text">
+            "Our commercial property looks sharper than ever. Green Leaf handles a lot of our tenants' expectations about curb appeal, and they've never let us down. Consistent, professional, and easy to work with every season."
+          </p>
+          <div class="testimonial-author">Tom B.</div>
+          <div class="testimonial-location">Commercial Property Manager</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner" aria-label="Request a free quote">
+    <div class="container">
+      <div class="cta-banner-inner">
+        <h2 class="cta-banner-title">Ready to Love Your Yard Again?</h2>
+        <p class="cta-banner-sub">Get a free, no-obligation quote from Green Leaf Landscaping. We respond within one business day.</p>
+        <div class="cta-banner-actions">
+          <a href="#contact" class="btn-white">Request Free Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info">
+          <span class="badge">Contact Us</span>
+          <h2 class="section-title" id="contact-heading">Let's Talk About Your Property</h2>
+          <p>
+            Ready to get started? Have a question about a specific service? Reach out and a member of our team will get back to you within one business day.
+          </p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-item-icon" aria-hidden="true">📞</div>
+              <div>
+                <div class="contact-item-label">Phone</div>
+                <div class="contact-item-text">(555) 847-3200</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon" aria-hidden="true">📧</div>
+              <div>
+                <div class="contact-item-label">Email</div>
+                <div class="contact-item-text">info@greenleaflandscaping.com</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon" aria-hidden="true">🕐</div>
+              <div>
+                <div class="contact-item-label">Office Hours</div>
+                <div class="contact-item-text">Mon – Fri: 7am – 6pm<br/>Sat: 8am – 3pm</div>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item-icon" aria-hidden="true">📍</div>
+              <div>
+                <div class="contact-item-label">Service Area</div>
+                <div class="contact-item-text">Residential &amp; Commercial — Local Region</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <div class="form-title">Request a Free Quote</div>
+          <form action="#" aria-label="Contact form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="firstName">First Name</label>
+                <input class="form-input" type="text" id="firstName" name="firstName" placeholder="Jane" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="lastName">Last Name</label>
+                <input class="form-input" type="text" id="lastName" name="lastName" placeholder="Smith" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address</label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="jane@example.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="phone">Phone Number</label>
+              <input class="form-input" type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="service">Service Interested In</label>
+              <select class="form-select" id="service" name="service">
+                <option value="">Select a service…</option>
+                <option value="lawn-care">Lawn Care &amp; Maintenance</option>
+                <option value="garden-design">Garden &amp; Bed Design</option>
+                <option value="tree-trimming">Tree &amp; Shrub Trimming</option>
+                <option value="seasonal-cleanup">Seasonal Cleanup</option>
+                <option value="irrigation">Irrigation &amp; Drainage</option>
+                <option value="mulching">Mulching &amp; Hardscaping</option>
+                <option value="other">Other / Not Sure</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">Tell Us About Your Project</label>
+              <textarea class="form-textarea" id="message" name="message" placeholder="Describe your property and what you're looking to have done…"></textarea>
+            </div>
+            <button type="submit" class="btn-primary form-submit">Send My Request</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Green Leaf Landscaping</div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#process">Process</a>
+          <a href="#testimonials">Reviews</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <p class="footer-copy">&copy; 2026 Green Leaf Landscaping. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation toggle — DOM API only, no innerHTML
+    (function () {
+      var hamburger = document.getElementById('hamburger');
+      var mobileNav = document.getElementById('mobileNav');
+      if (!hamburger || !mobileNav) return;
+
+      hamburger.addEventListener('click', function () {
+        var isOpen = mobileNav.classList.contains('open');
+        if (isOpen) {
+          mobileNav.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        } else {
+          mobileNav.classList.add('open');
+          hamburger.setAttribute('aria-expanded', 'true');
+        }
+      });
+
+      // Close mobile nav when a link is clicked
+      var mobileLinks = mobileNav.querySelectorAll('a');
+      mobileLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          mobileNav.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // Close mobile nav when clicking outside
+      document.addEventListener('click', function (e) {
+        if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+          mobileNav.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }());
+  </script>
+</body>
+</html>
