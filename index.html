@@ -42,6 +42,7 @@
       --color-status-pending: #f59e0b;
       --color-status-live: #10b981;
       --color-status-archived: #6b7280;
+      --color-status-error: #ef4444;
     }
 
     /* =====================
@@ -147,6 +148,10 @@
 
     .status-archived {
       background-color: var(--color-status-archived);
+    }
+
+    .status-error {
+      background-color: var(--color-status-error);
     }
 
     /* =====================
@@ -337,7 +342,7 @@
      * Uses DOM APIs throughout to avoid XSS via attribute or JS-string interpolation.
      */
     function renderClientCards(clients) {
-      var VALID_STATUSES = ['pending', 'live', 'archived'];
+      var VALID_STATUSES = ['pending', 'live', 'archived', 'error'];
       var grid = document.getElementById('client-grid');
       grid.innerHTML = '';
 
@@ -377,6 +382,12 @@
         footer.appendChild(btn);
         article.appendChild(title);
         article.appendChild(meta);
+        if (client.errorMessage && typeof client.errorMessage === 'string' && client.errorMessage.trim()) {
+          var errorSubtitle = document.createElement('p');
+          errorSubtitle.className = 'card-meta';
+          errorSubtitle.textContent = client.errorMessage;
+          article.appendChild(errorSubtitle);
+        }
         article.appendChild(footer);
         grid.appendChild(article);
       });
