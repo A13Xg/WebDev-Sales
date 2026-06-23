@@ -52,6 +52,19 @@
       --color-footer-bg: #1a3a2a;
       --color-footer-text: #b7e4c7;
 
+      /* Opacity variants for overlay contexts */
+      --color-accent-muted-20: rgba(183,228,199,0.2);   /* nav-mobile border */
+      --color-accent-muted-40: rgba(183,228,199,0.4);   /* hero-badge border */
+      --color-accent-muted-55: rgba(183,228,199,0.55);  /* footer-copy */
+      --color-white-07: rgba(255,255,255,0.07);         /* card bg on dark */
+      --color-white-12: rgba(255,255,255,0.12);         /* card border on dark */
+      --color-white-18: rgba(255,255,255,0.18);         /* divider on dark */
+      --color-white-50: rgba(255,255,255,0.5);          /* muted text on dark */
+      --color-white-70: rgba(255,255,255,0.7);          /* secondary text on dark */
+      --color-white-85: rgba(255,255,255,0.85);         /* body text on dark */
+      --color-white-88: rgba(255,255,255,0.88);         /* primary text on dark */
+      --color-accent-focus: rgba(45,106,79,0.12);       /* focus ring */
+
       /* Shadows & Radius */
       --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
       --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
@@ -292,7 +305,7 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
       padding: var(--space-sm) 0;
-      border-bottom: 1px solid rgba(183,228,199,0.2);
+      border-bottom: 1px solid var(--color-accent-muted-20);
     }
 
     /* ── Hero ─────────────────────────────────────────────────── */
@@ -337,7 +350,7 @@
       text-transform: uppercase;
       color: var(--color-accent-muted);
       margin-bottom: var(--space-md);
-      border: 1px solid rgba(183,228,199,0.4);
+      border: 1px solid var(--color-accent-muted-40);
       padding: var(--space-xs) var(--space-md);
       border-radius: 20px;
     }
@@ -353,7 +366,7 @@
 
     .hero-sub {
       font-size: 1.1rem;
-      color: rgba(255,255,255,0.88);
+      color: var(--color-white-88);
       max-width: 520px;
       margin-bottom: var(--space-2xl);
       line-height: 1.8;
@@ -370,7 +383,7 @@
       z-index: 2;
       margin-top: var(--space-xl);
       padding-top: var(--space-lg);
-      border-top: 1px solid rgba(255,255,255,0.18);
+      border-top: 1px solid var(--color-white-18);
       display: flex;
       gap: var(--space-2xl);
       flex-wrap: wrap;
@@ -389,7 +402,7 @@
 
     .trust-stat-label {
       font-size: 0.82rem;
-      color: rgba(255,255,255,0.7);
+      color: var(--color-white-70);
       font-family: var(--font-family-heading);
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -606,7 +619,7 @@
     .testimonials-header .section-title { color: var(--color-surface); }
     .testimonials-header .badge { color: var(--color-accent-muted); }
     .testimonials-header .section-sub {
-      color: rgba(255,255,255,0.7);
+      color: var(--color-white-70);
       margin: 0 auto;
     }
 
@@ -617,8 +630,8 @@
     }
 
     .testimonial-card {
-      background-color: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
+      background-color: var(--color-white-07);
+      border: 1px solid var(--color-white-12);
       border-radius: var(--radius-md);
       padding: var(--space-xl);
     }
@@ -632,7 +645,7 @@
 
     .testimonial-text {
       font-size: 0.95rem;
-      color: rgba(255,255,255,0.88);
+      color: var(--color-white-88);
       line-height: 1.8;
       font-style: italic;
       margin-bottom: var(--space-lg);
@@ -648,7 +661,7 @@
 
     .testimonial-location {
       font-size: 0.78rem;
-      color: rgba(255,255,255,0.5);
+      color: var(--color-white-50);
       margin-top: var(--space-xs);
     }
 
@@ -675,7 +688,7 @@
 
     .cta-banner-sub {
       font-size: 1rem;
-      color: rgba(255,255,255,0.85);
+      color: var(--color-white-85);
       max-width: 440px;
     }
 
@@ -833,7 +846,7 @@
     .form-textarea:focus {
       outline: none;
       border-color: var(--color-accent);
-      box-shadow: 0 0 0 3px rgba(45,106,79,0.12);
+      box-shadow: 0 0 0 3px var(--color-accent-focus);
     }
 
     .form-submit {
@@ -883,7 +896,7 @@
 
     .footer-copy {
       font-size: 0.8rem;
-      color: rgba(183,228,199,0.55);
+      color: var(--color-accent-muted-55);
     }
 
     /* ── Responsive ───────────────────────────────────────────── */
