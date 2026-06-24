@@ -913,6 +913,91 @@
       return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
+    // =====================
+    // Modal: open / close / focus trap
+    // =====================
+
+    function openAddClientModal() {
+      var modal = document.getElementById('add-client-modal');
+      var formView = document.getElementById('modal-form-view');
+      var outputView = document.getElementById('modal-output-view');
+      var form = document.getElementById('intake-form');
+
+      // Reset to form view and clear values
+      formView.style.display = '';
+      outputView.style.display = 'none';
+      form.reset();
+      // Re-lock slug to readonly (auto-generation mode)
+      var slugInput = document.getElementById('field-slug');
+      if (slugInput) {
+        slugInput.readOnly = true;
+        slugInput.value = '';
+      }
+      // Clear any validation errors
+      document.querySelectorAll('.form-error').forEach(function(el) { el.textContent = ''; });
+      document.querySelectorAll('.form-input, .form-textarea').forEach(function(el) {
+        el.classList.remove('input-error');
+      });
+
+      modal.classList.add('open');
+      // Focus first required field
+      var first = document.getElementById('field-name');
+      if (first) first.focus();
+
+      modal.addEventListener('keydown', trapFocus);
+    }
+
+    function closeAddClientModal() {
+      var modal = document.getElementById('add-client-modal');
+      modal.classList.remove('open');
+      modal.removeEventListener('keydown', trapFocus);
+      // Return focus to the trigger button
+      var trigger = document.getElementById('add-client-btn');
+      if (trigger) trigger.focus();
+    }
+
+    function trapFocus(e) {
+      if (e.key !== 'Tab' && e.key !== 'Escape') return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeAddClientModal();
+        return;
+      }
+      var modal = document.getElementById('modal-card');
+      var focusable = Array.from(modal.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )).filter(function(el) { return !el.disabled && el.offsetParent !== null; });
+      if (focusable.length === 0) return;
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    function wireAddClientModal() {
+      var addClientBtn = document.getElementById('add-client-btn');
+      if (!addClientBtn) return;
+      addClientBtn.style.display = '';
+      addClientBtn.addEventListener('click', openAddClientModal);
+      document.getElementById('modal-close-btn').addEventListener('click', closeAddClientModal);
+      document.getElementById('modal-cancel-btn').addEventListener('click', closeAddClientModal);
+      document.getElementById('add-client-modal').addEventListener('click', function(e) {
+        if (e.target === e.currentTarget) closeAddClientModal();
+      });
+      initIntakeForm();
+    }
+
+    function initIntakeForm() {}
+
     async function initDashboard() {
       let cfg;
       try {
@@ -929,6 +1014,7 @@
       if (stored === cfg.hash) {
         document.getElementById('dashboard').style.display = '';
         loadClients();
+        wireAddClientModal();
         return;
       }
 
@@ -946,6 +1032,7 @@
           gate.style.display = 'none';
           document.getElementById('dashboard').style.display = '';
           loadClients();
+          wireAddClientModal();
         } else {
           errorEl.textContent = 'Incorrect access code.';
           input.value = '';
