@@ -12,18 +12,18 @@ A prospect receives a personalized demo URL showing their business already desig
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Root dashboard with simple JS password protection, auto-discovers and lists all client sub-sites — Phase 01+03
+- ✓ Client sub-sites served at `/[clientSlug]/` paths via GitHub Pages folder routing — Phase 02+05
+- ✓ JSON intake file supports: business name, existing domain (optional), industry/business type — Phase 01+02
+- ✓ Local AI pipeline reads intake, researches each business (fetches existing site if domain provided), then designs and builds the site — Phase 02+04+05
+- ✓ AI design strategy matches colors, typography, and layout patterns to the business content type — not just industry label — Phase 02+05
+- ✓ Generated sites draw component patterns from `../Web-Dev-Samples/docs/sites/` as style references — Phase 02+05
+- ✓ Generated sites are pure HTML/CSS/JS (no build step, GitHub Pages compatible) — Phase 02+05
+- ✓ Dashboard displays all client sub-sites with metadata (name, industry, slug link, status badge, copy URL) — Phase 01+05
 
 ### Active
 
-- [ ] Root dashboard with simple JS password protection, auto-discovers and lists all client sub-sites
-- [ ] Client sub-sites served at `/[clientSlug]/` paths via GitHub Pages folder routing
-- [ ] JSON intake file supports: business name, existing domain (optional), industry/business type
-- [ ] Local AI pipeline reads intake, researches each business (fetches existing site if domain provided), then designs and builds the site
-- [ ] AI design strategy matches colors, typography, and layout patterns to the business content type — not just industry label
-- [ ] Generated sites draw component patterns from `../Web-Dev-Samples/docs/sites/` as style references
-- [ ] Generated sites are pure HTML/CSS/JS (no build step, GitHub Pages compatible)
-- [ ] Dashboard displays all client sub-sites with metadata (name, industry, slug link)
+(All v1 requirements validated — see Validated above)
 
 ### Out of Scope
 
@@ -34,11 +34,13 @@ A prospect receives a personalized demo URL showing their business already desig
 
 ## Context
 
-- **Repo**: `WebDev-Sales` on GitHub, served via GitHub Pages
+- **Repo**: `WebDev-Sales` on GitHub, served via GitHub Pages — public repo, demos publicly accessible
 - **Style reference**: `../Web-Dev-Samples/docs/sites/` contains 13 full themed examples (minimalist portfolio, gourmet restaurant, tech startup, fashion e-commerce, travel, fitness, agency, news, music festival, law firm, outdoor, indie game, theme showcase) plus a 100-theme catalog in `13-theme-showcase`
-- **Generation approach**: Claude Code CLI run locally ingests `clients.json`, iterates each new entry, researches via web fetch, picks/adapts design patterns, writes files to `/[clientSlug]/`
+- **Generation approach**: Claude Code CLI run locally ingests `_pipeline/intake.json`, iterates each new entry, researches via web fetch (3-path fallback), picks/adapts design patterns, writes files to `/[clientSlug]/`
 - **Dashboard routing**: GitHub Pages serves subdirectories naturally — no special config needed for `/clientSlug/index.html` to resolve
 - **Target use**: Sent directly to prospects as `github.io/[repo]/[clientSlug]` — they see their own brand, professionally designed
+- **Current state (v1.0)**: 6 live client demos, password-protected dashboard, 7-step pipeline with 3-path research fallback fully operational; per-client `buildLog.md` and `email.md` artifacts generated locally (gitignored)
+- **Cloudflare note**: ~20% of small business domains are Cloudflare-proxied; Path B (web search fallback) validated and working — enrich `notes` field for best results on blocked domains
 
 ## Constraints
 
@@ -52,11 +54,13 @@ A prospect receives a personalized demo URL showing their business already desig
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Pure HTML/CSS/JS for generated sites | No build step — GitHub Pages serves files directly, zero friction for demos | — Pending |
-| Local AI pipeline (not GitHub Actions) | More control, can use interactive Claude Code features and skills | — Pending |
-| JS password protection on dashboard | Static hosting constraint; purpose is friction, not real security | — Pending |
-| Content-type-matched design strategy | Demo effectiveness depends on client feeling it was made for them | — Pending |
-| Web-Dev-Samples as pattern library | Existing curated themes provide high-quality starting points and maintain style consistency | — Pending |
+| Pure HTML/CSS/JS for generated sites | No build step — GitHub Pages serves files directly, zero friction for demos | Delivered: 6 live client demos, all self-contained, served via GitHub Pages with no build toolchain |
+| Local AI pipeline (not GitHub Actions) | More control, can use interactive Claude Code features and skills | Delivered: `/generate-client` skill + 7-step pipeline, 3-path research flow (A: live domain, B: Cloudflare fallback, C: notes-only) |
+| JS password protection on dashboard | Static hosting constraint; purpose is friction, not real security | Delivered: SHA-256 hash comparison via WebCrypto + sessionStorage gate; no npm dependency |
+| Content-type-matched design strategy | Demo effectiveness depends on client feeling it was made for them | Validated: coffee (warm/sensory/craft), plumbing (trust/authority), photography (gallery/editorial) each received distinct treatment beyond industry label |
+| Web-Dev-Samples as pattern library | Existing curated themes provide high-quality starting points and maintain style consistency | Validated: all 5 generated sites reference specific theme IDs (02-gourmet-restaurant, 10-law-firm, 01-minimalist-portfolio, etc.) |
+| Status enum: pending\|live\|archived\|error | Four-state pipeline state machine — error is non-blocking, retried on next run | Delivered: Phase 04 hardening + Phase 05 error badge in dashboard |
+| CSS Variable Discipline for all tokens | Enables per-client theme overrides via :root without touching HTML | Delivered: enforced across index.html and all 5 generated client sites; 0 hardcoded hex in CSS selectors |
 
 ## Evolution
 
@@ -76,4 +80,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-19 after initialization*
+*Last updated: 2026-06-23 after v1.0 milestone close*
