@@ -563,6 +563,70 @@
     }
 
     /* =====================
+       Output Panel
+       ===================== */
+    .output-panel {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .output-json {
+      background: var(--color-code-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: var(--space-md);
+      overflow-x: auto;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: var(--font-size-label);
+      line-height: 1.6;
+      color: var(--color-text-primary);
+      white-space: pre;
+    }
+
+    .output-actions {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .output-actions-row {
+      display: flex;
+      gap: var(--space-sm);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .pipeline-warning {
+      color: var(--color-status-pending);
+      font-size: var(--font-size-label);
+    }
+
+    .pipeline-unsupported-note {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-label);
+    }
+
+    .output-add-another {
+      color: var(--color-accent);
+      font-size: var(--font-size-body);
+      cursor: pointer;
+      text-align: center;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      font-family: var(--font-family-base);
+      padding: 0;
+      display: block;
+      width: 100%;
+    }
+
+    .output-add-another:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    /* =====================
        Responsive
        ===================== */
     @media (max-width: 640px) {
@@ -682,7 +746,30 @@
           </div>
         </form>
       </div>
-      <div id="modal-output-view" style="display:none;"></div>
+      <div id="modal-output-view" style="display:none;">
+        <div class="output-panel">
+          <div>
+            <p style="font-size:var(--font-size-label);color:var(--color-text-secondary);margin-bottom:var(--space-sm);">Generated entry — add to your intake file:</p>
+            <pre class="output-json"><code id="output-json-block"></code></pre>
+          </div>
+          <div class="output-actions">
+            <div class="output-actions-row">
+              <button id="btn-copy-json" class="btn-primary" style="flex:0 0 auto;">Copy JSON</button>
+              <button id="btn-download" class="btn-secondary" style="flex:0 0 auto;">Download intake.json</button>
+            </div>
+            <div class="output-actions-row" id="pipeline-row">
+              <button id="btn-send-pipeline" class="btn-secondary" style="flex:0 0 auto;">Send to Pipeline</button>
+              <span class="pipeline-warning" id="pipeline-warning" style="display:none;">
+                ⚠ This overwrites the current intake file
+              </span>
+              <span class="pipeline-unsupported-note" id="pipeline-unsupported-note" style="display:none;">
+                Use Download on this browser — File System Access not supported.
+              </span>
+            </div>
+          </div>
+          <button type="button" class="output-add-another" id="add-another-link">+ Add Another</button>
+        </div>
+      </div>
     </div>
   </div>
 
