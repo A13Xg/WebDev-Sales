@@ -939,6 +939,8 @@
         el.classList.remove('input-error');
       });
 
+      initSlugGeneration();
+
       modal.classList.add('open');
       // Focus first required field
       var first = document.getElementById('field-name');
@@ -994,6 +996,48 @@
         if (e.target === e.currentTarget) closeAddClientModal();
       });
       initIntakeForm();
+    }
+
+    // =====================
+    // Slug generation
+    // =====================
+
+    function generateSlug(text) {
+      return text
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-z0-9-]/g, '')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+    }
+
+    function initSlugGeneration() {
+      var nameInput = document.getElementById('field-name');
+      var slugInput = document.getElementById('field-slug');
+      var editToggle = document.getElementById('slug-edit-toggle');
+      var slugManuallyEdited = false;
+
+      function updateSlug() {
+        if (!slugManuallyEdited) {
+          slugInput.value = generateSlug(nameInput.value);
+        }
+      }
+
+      nameInput.addEventListener('input', updateSlug);
+
+      editToggle.addEventListener('click', function() {
+        if (slugInput.readOnly) {
+          slugInput.readOnly = false;
+          slugInput.focus();
+          editToggle.textContent = 'Auto';
+          slugManuallyEdited = true;
+        } else {
+          slugInput.readOnly = true;
+          editToggle.textContent = 'Edit';
+          slugManuallyEdited = false;
+          updateSlug(); // re-sync from name
+        }
+      });
     }
 
     function initIntakeForm() {}
