@@ -386,6 +386,183 @@
     }
 
     /* =====================
+       Form Fields
+       ===================== */
+    .form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .form-label {
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-label .required-mark {
+      color: var(--color-status-error);
+      margin-left: 2px;
+    }
+
+    .form-input,
+    .form-textarea {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      color: var(--color-text-primary);
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body);
+      padding: var(--space-sm) var(--space-md);
+      width: 100%;
+      min-height: 44px;
+      outline: none;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--color-accent);
+    }
+
+    .form-input.input-error,
+    .form-textarea.input-error {
+      border-color: var(--color-status-error);
+    }
+
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .form-error {
+      color: var(--color-status-error);
+      font-size: var(--font-size-label);
+      min-height: 16px;
+    }
+
+    .slug-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .slug-row .form-input {
+      flex: 1;
+    }
+
+    #slug-edit-toggle {
+      color: var(--color-accent);
+      font-size: var(--font-size-label);
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: var(--font-family-base);
+    }
+
+    #slug-edit-toggle:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    /* Advanced section */
+    details.advanced-section {
+      border-top: 1px solid var(--color-border);
+      padding-top: var(--space-md);
+    }
+
+    details.advanced-section summary {
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-size: var(--font-size-label);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-md);
+    }
+
+    details.advanced-section summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.advanced-section[open] summary::before {
+      content: '▾';
+    }
+
+    details.advanced-section:not([open]) summary::before {
+      content: '▸';
+    }
+
+    .form-actions {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: flex-end;
+      padding-top: var(--space-md);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .btn-primary {
+      background-color: var(--color-accent);
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-bold);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      transition: background-color 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #2563eb;
+    }
+
+    .btn-primary:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body);
+      font-weight: var(--font-weight-bold);
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-text-secondary);
+      color: var(--color-text-primary);
+    }
+
+    .btn-secondary:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    /* =====================
        Responsive
        ===================== */
     @media (max-width: 640px) {
@@ -432,7 +609,79 @@
         <button class="modal-close" id="modal-close-btn" aria-label="Close modal">✕</button>
       </div>
       <!-- Form view and output panel inserted in Tasks 3 and 5 -->
-      <div id="modal-form-view"></div>
+      <div id="modal-form-view">
+        <form id="intake-form" autocomplete="off" novalidate>
+          <div class="form-fields">
+            <!-- Business Name -->
+            <div class="form-field">
+              <label class="form-label" for="field-name">Business Name <span class="required-mark">*</span></label>
+              <input id="field-name" class="form-input" type="text" required autocomplete="off">
+              <p class="form-error" id="error-name" aria-live="polite"></p>
+            </div>
+
+            <!-- Slug -->
+            <div class="form-field">
+              <label class="form-label" for="field-slug">Slug <span class="required-mark">*</span></label>
+              <div class="slug-row">
+                <input id="field-slug" class="form-input" type="text" required readonly aria-describedby="error-slug">
+                <button type="button" id="slug-edit-toggle">Edit</button>
+              </div>
+              <p class="form-error" id="error-slug" aria-live="polite"></p>
+            </div>
+
+            <!-- Industry -->
+            <div class="form-field">
+              <label class="form-label" for="field-industry">Industry <span class="required-mark">*</span></label>
+              <input id="field-industry" class="form-input" type="text" placeholder="e.g. Home Services, Food &amp; Beverage" required>
+              <p class="form-error" id="error-industry" aria-live="polite"></p>
+            </div>
+
+            <!-- Business Type -->
+            <div class="form-field">
+              <label class="form-label" for="field-business-type">Business Type <span class="required-mark">*</span></label>
+              <input id="field-business-type" class="form-input" type="text" placeholder="e.g. coffee roaster, plumber" required>
+              <p class="form-error" id="error-business-type" aria-live="polite"></p>
+            </div>
+
+            <!-- Domain -->
+            <div class="form-field">
+              <label class="form-label" for="field-domain">Domain</label>
+              <input id="field-domain" class="form-input" type="url" placeholder="https://example.com — optional">
+              <p class="form-error" id="error-domain" aria-live="polite"></p>
+            </div>
+
+            <!-- Notes -->
+            <div class="form-field">
+              <label class="form-label" for="field-notes">Notes</label>
+              <textarea id="field-notes" class="form-textarea" placeholder="Research direction, services, tone, colors — optional"></textarea>
+            </div>
+
+            <!-- Advanced -->
+            <details class="advanced-section" id="advanced-section">
+              <summary>Advanced options</summary>
+              <div class="form-fields">
+                <div class="form-field">
+                  <label class="form-label" for="field-services">Services</label>
+                  <textarea id="field-services" class="form-textarea" placeholder="Drain clearing, pipe repair, emergency calls — optional"></textarea>
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="field-tone">Tone</label>
+                  <input id="field-tone" class="form-input" type="text" placeholder="trust, authoritative, warm — optional">
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="field-color-hint">Color Hint</label>
+                  <input id="field-color-hint" class="form-input" type="text" placeholder="#1a3c5e or &quot;navy and white&quot; — optional">
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" id="modal-cancel-btn">Cancel</button>
+            <button type="submit" class="btn-primary">Generate Entry</button>
+          </div>
+        </form>
+      </div>
       <div id="modal-output-view" style="display:none;"></div>
     </div>
   </div>
